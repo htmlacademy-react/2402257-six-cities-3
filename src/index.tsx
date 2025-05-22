@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/app';
-import { welcomeScreenData, cardData } from './mock';
+import App from './components/app/app';
+import { welcomeScreenData, cardsData } from './mock';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -9,6 +9,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App welcomeScreenData={welcomeScreenData} cardData={cardData} />
+    <App welcomeScreenData={welcomeScreenData} cardsData={cardsData} />
   </React.StrictMode>
 );

@@ -1,25 +1,10 @@
 type CardProps = {
   cardData: {
-    // id: string;
     title: string;
     type: string;
     price: number;
-    // city: {
-    //   name: string;
-    //   location: {
-    //     latitude: number;
-    //     longitude: number;
-    //     zoom: number;
-    //   };
-    // };
-    // location: {
-    //   latitude: number;
-    //   longitude: number;
-    //   zoom: number;
-    // };
     isFavorite: boolean;
     isPremium: boolean;
-    // rating: number;
     previewImage: string;
   };
 };
@@ -27,9 +12,11 @@ type CardProps = {
 function CitiesCard({ cardData }: CardProps): JSX.Element {
   return (
     <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>{cardData.isPremium ? 'Premium' : ''}</span>
-      </div>
+      {cardData.isPremium ? (
+        <div className="place-card__mark">Premium</div>
+      ) : (
+        ''
+      )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img
