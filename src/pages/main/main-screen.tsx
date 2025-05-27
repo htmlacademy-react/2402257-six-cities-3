@@ -2,6 +2,7 @@ import HeaderScreen from '../../components/header/header-screen';
 import PlacesLeftScreen from '../../components/places-left/places-left-screen';
 import PlacesRightScreen from '../../components/places-right/places-right-screen';
 import LocationsMenuScreen from '../../components/locations-menu/locations-menu-screen';
+import { Helmet } from 'react-helmet-async';
 
 type MainScreenProps = {
   loggedHeaderData: {
@@ -27,6 +28,9 @@ function MainScreen({
 }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>Главная страница</title>
+      </Helmet>
       <HeaderScreen headerData={loggedHeaderData} />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>

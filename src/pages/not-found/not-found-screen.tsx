@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 function NotFoundScreen(): JSX.Element {
   return (
@@ -10,6 +11,9 @@ function NotFoundScreen(): JSX.Element {
         flexDirection: 'column',
       }}
     >
+      <Helmet>
+        <title>Страница не найдена</title>
+      </Helmet>
       <header
         style={{
           padding: '20px 0',

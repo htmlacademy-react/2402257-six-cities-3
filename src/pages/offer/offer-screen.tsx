@@ -1,4 +1,5 @@
 import HeaderScreen from '../../components/header/header-screen';
+import { Helmet } from 'react-helmet-async';
 
 type OfferScreenProps = {
   loggedHeaderData: {
@@ -9,6 +10,9 @@ type OfferScreenProps = {
 function OfferScreen({ loggedHeaderData }: OfferScreenProps): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>Персонализированное предложения</title>
+      </Helmet>
       <HeaderScreen headerData={loggedHeaderData} />
       <main className="page__main page__main--offer">
         <section className="offer">

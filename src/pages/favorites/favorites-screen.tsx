@@ -1,4 +1,5 @@
 import HeaderScreen from '../../components/header/header-screen';
+import { Helmet } from 'react-helmet-async';
 
 type FavoritesScreenProps = {
   loggedHeaderData: {
@@ -12,6 +13,9 @@ function FavoritesScreen({
 }: FavoritesScreenProps): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>Избранные предложения</title>
+      </Helmet>
       <HeaderScreen headerData={loggedHeaderData} />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
