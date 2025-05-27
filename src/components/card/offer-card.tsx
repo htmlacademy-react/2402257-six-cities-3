@@ -9,7 +9,7 @@ type CardProps = {
   };
 };
 
-function CitiesCard({ cardData }: CardProps): JSX.Element {
+function OfferCard({ cardData }: CardProps): JSX.Element {
   return (
     <article className="cities__card place-card">
       {cardData.isPremium ? (
@@ -65,4 +65,4 @@ function CitiesCard({ cardData }: CardProps): JSX.Element {
   );
 }
 
-export default CitiesCard;
+export default OfferCard;

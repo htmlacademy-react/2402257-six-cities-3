@@ -1,4 +1,6 @@
-import CitiesCard from '../card/offer-card';
+import OfferCard from '../card/offer-card';
+import NoPlacesLeftScreen from '../no-places-left/no-places-left-screen';
+import PlacesFound from '../places-found/places-found';
 
 type CardsData = {
   foundedPlacesCount: number;
@@ -16,12 +18,14 @@ function PlacesLeftScreen({
   cardsData,
   foundedPlacesCount,
 }: CardsData): JSX.Element {
+  if (cardsData.length === 0) {
+    return <NoPlacesLeftScreen />;
+  }
+
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">
-        {foundedPlacesCount} places to stay in Amsterdam
-      </b>
+      <PlacesFound foundedPlacesCount={foundedPlacesCount} />
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex={0}>
@@ -47,7 +51,7 @@ function PlacesLeftScreen({
       </form>
       <div className="cities__places-list places__list tabs__content">
         {cardsData.map((card) => (
-          <CitiesCard key={card.id} cardData={card} />
+          <OfferCard key={card.id} cardData={card} />
         ))}
       </div>
     </section>
