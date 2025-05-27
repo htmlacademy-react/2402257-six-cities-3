@@ -1,5 +1,4 @@
-const welcomeScreenData = {
-  foundedPlacesCount: 5,
+const loggedHeaderData = {
   email: 'gniddddddd@spb.com',
   favoritePlacesCount: 500,
 };
@@ -66,4 +65,4 @@ const cardsData = [
   },
 ];
 
-export { welcomeScreenData, cardsData };
+export { loggedHeaderData, cardsData };

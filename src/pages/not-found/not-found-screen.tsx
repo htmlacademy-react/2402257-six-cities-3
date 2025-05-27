@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function NotFoundScreen(): JSX.Element {
   return (
     <div
@@ -78,8 +80,8 @@ function NotFoundScreen(): JSX.Element {
             had its name changed or is temporarily unavailable.
           </p>
 
-          <a
-            href="/"
+          <Link
+            to="/"
             style={{
               display: 'inline-block',
               padding: '12px 30px',
@@ -92,7 +94,7 @@ function NotFoundScreen(): JSX.Element {
             }}
           >
             Go Back Home
-          </a>
+          </Link>
         </div>
       </main>
     </div>

@@ -7,8 +7,7 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
 
 type AppScreenProps = {
-  welcomeScreenData: {
-    foundedPlacesCount: number;
+  loggedHeaderData: {
     email: string;
     favoritePlacesCount: number;
   };
@@ -28,7 +27,7 @@ type AppScreenProps = {
 };
 
 function App({
-  welcomeScreenData,
+  loggedHeaderData,
   cardsData,
   cities,
 }: AppScreenProps): JSX.Element {
@@ -39,15 +38,21 @@ function App({
           path={AppRoute.Main}
           element={
             <MainScreen
-              welcomeScreenData={welcomeScreenData}
+              loggedHeaderData={loggedHeaderData}
               cardsData={cardsData}
               cities={cities}
             />
           }
         />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
-        <Route path={AppRoute.Offer} element={<OfferScreen />} />
-        <Route path={AppRoute.Favorites} element={<FavoritesScreen />} />
+        <Route
+          path={AppRoute.Offer}
+          element={<OfferScreen loggedHeaderData={loggedHeaderData} />}
+        />
+        <Route
+          path={AppRoute.Favorites}
+          element={<FavoritesScreen loggedHeaderData={loggedHeaderData} />}
+        />
         <Route path="*" element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>

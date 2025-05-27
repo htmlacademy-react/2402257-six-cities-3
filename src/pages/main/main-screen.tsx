@@ -4,8 +4,7 @@ import PlacesRightScreen from '../../components/places-right/places-right-screen
 import LocationsMenuScreen from '../../components/locations-menu/locations-menu-screen';
 
 type MainScreenProps = {
-  welcomeScreenData: {
-    foundedPlacesCount: number;
+  loggedHeaderData: {
     email: string;
     favoritePlacesCount: number;
   };
@@ -22,13 +21,13 @@ type MainScreenProps = {
 };
 
 function MainScreen({
-  welcomeScreenData,
+  loggedHeaderData,
   cardsData,
   cities,
 }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
-      <HeaderScreen headerData={welcomeScreenData} />
+      <HeaderScreen headerData={loggedHeaderData} />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -38,7 +37,7 @@ function MainScreen({
           <div className="cities__places-container container">
             <PlacesLeftScreen
               cardsData={cardsData}
-              foundedPlacesCount={welcomeScreenData.foundedPlacesCount}
+              foundedPlacesCount={cardsData.length}
             />
             <PlacesRightScreen />
           </div>
