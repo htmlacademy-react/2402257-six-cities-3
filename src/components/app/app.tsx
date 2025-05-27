@@ -1,10 +1,11 @@
 import MainScreen from '../../pages/main/main-screen';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import LoginScreen from '../../pages/login/login-screen';
 import OfferScreen from '../../pages/offer/offer-screen';
 import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
+import PrivateRoute from '../private-route/private-route';
 
 type AppScreenProps = {
   loggedHeaderData: {
@@ -51,7 +52,11 @@ function App({
         />
         <Route
           path={AppRoute.Favorites}
-          element={<FavoritesScreen loggedHeaderData={loggedHeaderData} />}
+          element={
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <FavoritesScreen loggedHeaderData={loggedHeaderData} />
+            </PrivateRoute>
+          }
         />
         <Route path="*" element={<NotFoundScreen />} />
       </Routes>
