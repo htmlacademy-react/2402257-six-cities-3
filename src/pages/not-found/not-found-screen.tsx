@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+
 function NotFoundScreen(): JSX.Element {
   return (
     <div
@@ -8,6 +11,9 @@ function NotFoundScreen(): JSX.Element {
         flexDirection: 'column',
       }}
     >
+      <Helmet>
+        <title>Страница не найдена</title>
+      </Helmet>
       <header
         style={{
           padding: '20px 0',
@@ -78,8 +84,8 @@ function NotFoundScreen(): JSX.Element {
             had its name changed or is temporarily unavailable.
           </p>
 
-          <a
-            href="/"
+          <Link
+            to="/"
             style={{
               display: 'inline-block',
               padding: '12px 30px',
@@ -92,7 +98,7 @@ function NotFoundScreen(): JSX.Element {
             }}
           >
             Go Back Home
-          </a>
+          </Link>
         </div>
       </main>
     </div>

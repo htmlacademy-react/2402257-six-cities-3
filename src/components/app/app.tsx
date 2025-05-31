@@ -1,14 +1,15 @@
-import MainScreen from '../../pages/main/main-screen';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { HelmetProvider } from 'react-helmet-async';
+import MainScreen from '../../pages/main/main-screen';
 import LoginScreen from '../../pages/login/login-screen';
 import OfferScreen from '../../pages/offer/offer-screen';
 import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
+import PrivateRoute from '../private-route/private-route';
 
 type AppScreenProps = {
-  welcomeScreenData: {
-    foundedPlacesCount: number;
+  loggedHeaderData: {
     email: string;
     favoritePlacesCount: number;
   };
@@ -28,29 +29,41 @@ type AppScreenProps = {
 };
 
 function App({
-  welcomeScreenData,
+  loggedHeaderData,
   cardsData,
   cities,
 }: AppScreenProps): JSX.Element {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.Main}
-          element={
-            <MainScreen
-              welcomeScreenData={welcomeScreenData}
-              cardsData={cardsData}
-              cities={cities}
-            />
-          }
-        />
-        <Route path={AppRoute.Login} element={<LoginScreen />} />
-        <Route path={AppRoute.Offer} element={<OfferScreen />} />
-        <Route path={AppRoute.Favorites} element={<FavoritesScreen />} />
-        <Route path="*" element={<NotFoundScreen />} />
-      </Routes>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path={AppRoute.Main}
+            element={
+              <MainScreen
+                loggedHeaderData={loggedHeaderData}
+                cardsData={cardsData}
+                cities={cities}
+              />
+            }
+          />
+          <Route path={AppRoute.Login} element={<LoginScreen />} />
+          <Route
+            path={AppRoute.Offer}
+            element={<OfferScreen loggedHeaderData={loggedHeaderData} />}
+          />
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <FavoritesScreen loggedHeaderData={loggedHeaderData} />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NotFoundScreen />} />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

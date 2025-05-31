@@ -13,4 +13,11 @@ enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
 }
-export { cities, AppRoute };
+
+enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export { cities, AppRoute, AuthorizationStatus };
