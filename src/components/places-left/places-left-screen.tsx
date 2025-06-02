@@ -2,7 +2,7 @@ import OfferCard from '../card/offer-card';
 import NoPlacesLeftScreen from '../no-places-left/no-places-left-screen';
 import PlacesFound from '../places-found/places-found';
 
-type CardsData = {
+type CardsDataProps = {
   foundedPlacesCount: number;
   cardsData: {
     id: number | string;
@@ -13,11 +13,13 @@ type CardsData = {
     isPremium: boolean;
     previewImage: string;
   }[];
+  onOfferHover: (id: string | number) => void;
 };
 function PlacesLeftScreen({
   cardsData,
   foundedPlacesCount,
-}: CardsData): JSX.Element {
+  onOfferHover,
+}: CardsDataProps): JSX.Element {
   if (cardsData.length === 0) {
     return <NoPlacesLeftScreen />;
   }
@@ -51,7 +53,11 @@ function PlacesLeftScreen({
       </form>
       <div className="cities__places-list places__list tabs__content">
         {cardsData.map((card) => (
-          <OfferCard key={card.id} cardData={card} />
+          <OfferCard
+            key={card.id}
+            cardData={card}
+            onOfferHover={onOfferHover}
+          />
         ))}
       </div>
     </section>

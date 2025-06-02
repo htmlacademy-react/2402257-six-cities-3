@@ -7,17 +7,20 @@ import OfferScreen from '../../pages/offer/offer-screen';
 import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
+import { useState } from 'react';
 
 type AppScreenProps = {
   loggedHeaderData: {
     email: string;
-    favoritePlacesCount: number;
   };
   cardsData: {
-    id: number | string;
+    id: string;
     title: string;
     type: string;
     price: number;
+    city: {
+      name: string;
+    };
     isFavorite: boolean;
     isPremium: boolean;
     previewImage: string;
@@ -26,13 +29,28 @@ type AppScreenProps = {
     name: string;
     key: number;
   }[];
+  cardsComments: {
+    id: string;
+    date: string;
+    user: {
+      name: string;
+      avatarUrl: string;
+      isPro: boolean;
+    };
+    comment: string;
+    rating: number;
+  }[];
 };
 
 function App({
   loggedHeaderData,
+  cardsComments,
   cardsData,
   cities,
 }: AppScreenProps): JSX.Element {
+  const [activeOfferId, setActiveOfferId] = useState<string | number | null>(
+    null
+  );
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -44,19 +62,32 @@ function App({
                 loggedHeaderData={loggedHeaderData}
                 cardsData={cardsData}
                 cities={cities}
+                activeOfferId={activeOfferId}
+                onOfferHover={(id: string | number) => {
+                  setActiveOfferId(id);
+                }}
               />
             }
           />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route
             path={AppRoute.Offer}
-            element={<OfferScreen loggedHeaderData={loggedHeaderData} />}
+            element={
+              <OfferScreen
+                loggedHeaderData={loggedHeaderData}
+                cardsData={cardsData}
+                cardsComments={cardsComments}
+              />
+            }
           />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesScreen loggedHeaderData={loggedHeaderData} />
+              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <FavoritesScreen
+                  loggedHeaderData={loggedHeaderData}
+                  cardsData={cardsData}
+                />
               </PrivateRoute>
             }
           />
