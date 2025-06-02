@@ -1,7 +1,7 @@
 import FavoritesLocationList from '../favorite-location-list/favorites-location-list';
 
 type FavoritesListScreenProps = {
-  cardsData: {
+  favoritesOffers: {
     id: string;
     title: string;
     type: string;
@@ -17,7 +17,7 @@ type FavoritesListScreenProps = {
 };
 
 function FavoritesListScreen({
-  cardsData,
+  favoritesOffers,
   cities,
 }: FavoritesListScreenProps): JSX.Element {
   return (
@@ -25,7 +25,11 @@ function FavoritesListScreen({
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
         {Array.from(cities).map((city) => (
-          <FavoritesLocationList key={city} name={city} cardsData={cardsData} />
+          <FavoritesLocationList
+            key={city}
+            name={city}
+            favoritesOffers={favoritesOffers}
+          />
         ))}
       </ul>
     </section>

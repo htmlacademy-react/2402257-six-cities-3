@@ -2,7 +2,7 @@ import FavoritesCardScreen from '../favorites-card/favorites-card-screen';
 
 type FavoritesLocationListProps = {
   name: string;
-  cardsData: {
+  favoritesOffers: {
     id: string;
     title: string;
     type: string;
@@ -18,7 +18,7 @@ type FavoritesLocationListProps = {
 
 function FavoritesLocationList({
   name,
-  cardsData,
+  favoritesOffers,
 }: FavoritesLocationListProps): JSX.Element {
   return (
     <li className="favorites__locations-items">
@@ -30,7 +30,7 @@ function FavoritesLocationList({
         </div>
       </div>
       <div className="favorites__places">
-        {cardsData.map((card) => {
+        {favoritesOffers.map((card) => {
           if (card.city.name === name) {
             return <FavoritesCardScreen key={card.id} cardData={card} />;
           }

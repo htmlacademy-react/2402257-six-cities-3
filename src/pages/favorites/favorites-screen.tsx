@@ -25,8 +25,8 @@ function FavoritesScreen({
   loggedHeaderData,
   cardsData,
 }: FavoritesScreenProps): JSX.Element {
+  const favoritesOffers = cardsData.filter((offer) => offer.isFavorite);
   const cities = new Set(cardsData.map((offer) => offer.city.name));
-  //как описать тип для cities?
 
   return (
     <div className="page">
@@ -39,7 +39,10 @@ function FavoritesScreen({
           {cities.size === 0 ? (
             <FavoritesEmptyScreen />
           ) : (
-            <FavoritesListScreen cardsData={cardsData} cities={cities} />
+            <FavoritesListScreen
+              favoritesOffers={favoritesOffers}
+              cities={cities}
+            />
           )}
         </div>
       </main>
