@@ -1,15 +1,7 @@
+import { CardComment } from '../../types/types';
+
 type CommentDataProps = {
-  commentData: {
-    id: string;
-    date: string;
-    user: {
-      name: string;
-      avatarUrl: string;
-      isPro: boolean;
-    };
-    comment: string;
-    rating: number;
-  };
+  commentData: CardComment;
 };
 
 function ReviewItemScreen({ commentData }: CommentDataProps): JSX.Element {

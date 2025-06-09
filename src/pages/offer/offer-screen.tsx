@@ -2,34 +2,13 @@ import HeaderScreen from '../../components/header/header-screen';
 import { Helmet } from 'react-helmet-async';
 import ReviewItemScreen from '../../components/review-item/review-item-screen';
 import CommentFormScreen from '../../components/comment-form/comment-form-screen';
-
+import { CardComments, Points } from '../../types/types';
 type OfferScreenProps = {
   loggedHeaderData: {
     email: string;
   };
-  cardsData: {
-    id: string;
-    title: string;
-    type: string;
-    price: number;
-    city: {
-      name: string;
-    };
-    isFavorite: boolean;
-    isPremium: boolean;
-    previewImage: string;
-  }[];
-  cardsComments: {
-    id: string;
-    date: string;
-    user: {
-      name: string;
-      avatarUrl: string;
-      isPro: boolean;
-    };
-    comment: string;
-    rating: number;
-  }[];
+  cardsData: Points;
+  cardsComments: CardComments;
 };
 function OfferScreen({
   loggedHeaderData,

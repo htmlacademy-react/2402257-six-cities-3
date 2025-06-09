@@ -1,24 +1,18 @@
 import { Link } from 'react-router-dom';
 import LogoScreen from '../logo/logo-screen';
-
+import { Points } from '../../types/types';
 type HeaderScreenProps = {
   headerData: {
     email: string;
   };
-  cardsData: {
-    id: number | string;
-    title: string;
-    type: string;
-    price: number;
-    isFavorite: boolean;
-    isPremium: boolean;
-    previewImage: string;
-  }[];
+  cardsData: Points;
 };
 function HeaderScreen({
   headerData,
   cardsData,
 }: HeaderScreenProps): JSX.Element {
+  const favoritesCount = cardsData.filter((card) => card.isFavorite).length;
+
   return (
     <>
       <header className="header">
@@ -40,7 +34,7 @@ function HeaderScreen({
                     </span>
 
                     <span className="header__favorite-count">
-                      {cardsData.length}
+                      {favoritesCount}
                     </span>
                   </Link>
                 </li>

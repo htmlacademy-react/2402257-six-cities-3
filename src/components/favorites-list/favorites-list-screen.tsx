@@ -1,18 +1,8 @@
+import { Points } from '../../types/types';
 import FavoritesLocationList from '../favorite-location-list/favorites-location-list';
 
 type FavoritesListScreenProps = {
-  favoritesOffers: {
-    id: string;
-    title: string;
-    type: string;
-    price: number;
-    city: {
-      name: string;
-    };
-    isFavorite: boolean;
-    isPremium: boolean;
-    previewImage: string;
-  }[];
+  favoritesOffers: Points;
   cities: Set<string>;
 };
 

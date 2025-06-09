@@ -2,6 +2,13 @@ const loggedHeaderData = {
   email: 'gniddddddd@spb.com',
 };
 
+const city = {
+  title: 'Amsterdam',
+  lat: 52.3676,
+  lng: 4.9041,
+  zoom: 8,
+};
+
 const commentsData = [
   {
     id: 'bananzo',
@@ -107,8 +114,8 @@ const cardsData = [
       },
     },
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     isFavorite: true,
@@ -122,7 +129,7 @@ const cardsData = [
     type: 'villa',
     price: 300,
     city: {
-      name: 'Sverdlovsk',
+      name: 'Amsterdam',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
@@ -130,8 +137,8 @@ const cardsData = [
       },
     },
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     isFavorite: false,
@@ -145,7 +152,7 @@ const cardsData = [
     type: 'cottage',
     price: 85,
     city: {
-      name: 'Sverdlovsk',
+      name: 'Amsterdam',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
@@ -153,8 +160,8 @@ const cardsData = [
       },
     },
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 8,
     },
     isFavorite: true,
@@ -176,83 +183,14 @@ const cardsData = [
       },
     },
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 8,
     },
     isFavorite: false,
     isPremium: true,
     previewImage: 'https://i.redd.it/xaq1imzl871e1.png',
   },
-  {
-    id: 'pupsiki',
-    title: 'Ape Escape Penthouse',
-    type: 'house',
-    price: 250,
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8,
-      },
-    },
-    location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 8,
-    },
-    isFavorite: true,
-    isPremium: true,
-    previewImage:
-      'https://us-tuna-sounds-images.voicemod.net/b2c4409e-1aeb-4198-b08b-2bfba0dc3825-1682114255851.jpg',
-  },
-  {
-    id: 'kirilitsa',
-    title: 'Chimpanzee Chill Zone',
-    type: 'cabin',
-    price: 150,
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8,
-      },
-    },
-    location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 8,
-    },
-    isFavorite: true,
-    isPremium: false,
-    previewImage:
-      'https://i.pinimg.com/736x/05/6a/fb/056afb60b6588403b4dc9b560bffd72a.jpg',
-  },
-  {
-    id: 'salaxa',
-    title: 'Like house',
-    type: 'big house',
-    price: 150,
-    city: {
-      name: 'Novosibirsk',
-      location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8,
-      },
-    },
-    location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 8,
-    },
-    isFavorite: true,
-    isPremium: false,
-    previewImage:
-      'https://i.pinimg.com/736x/05/6a/fb/056afb60b6588403b4dc9b560bffd72a.jpg',
-  },
 ];
 
-export { loggedHeaderData, cardsData, commentsData };
+export { loggedHeaderData, cardsData, commentsData, city };
