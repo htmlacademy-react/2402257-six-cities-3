@@ -1,4 +1,7 @@
 import { CardComment } from '../../types/types';
+import RatingScreen from '../../components/rating/rating-screen';
+import { ContainerRatingType } from '../../const';
+import { humanizeCommentDate, classNameCommentDate } from '../../utils/day';
 
 type CommentDataProps = {
   commentData: CardComment;
@@ -21,17 +24,20 @@ function ReviewItemScreen({ commentData }: CommentDataProps): JSX.Element {
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{ width: '80%' }} />
-            <span className="visually-hidden">Rating</span>
-          </div>
+          <RatingScreen
+            rating={commentData.rating}
+            containerType={ContainerRatingType.Review}
+          />
         </div>
         <p className="reviews__text">
           A quiet cozy and picturesque that hides behind a a river by the unique
           lightness of Amsterdam. The building is green and from 18th century.
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">
-          April 2019
+        <time
+          className="reviews__time"
+          dateTime={classNameCommentDate(new Date(commentData.date))}
+        >
+          {humanizeCommentDate(new Date(commentData.date))}
         </time>
       </div>
     </li>

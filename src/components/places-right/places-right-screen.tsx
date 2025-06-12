@@ -1,4 +1,4 @@
-import Map from '../map/map';
+import MapScreen from '../map/map';
 import { City, Points } from '../../types/types';
 
 type PlacesRightScreenProps = {
@@ -16,7 +16,7 @@ function PlacesRightScreen({
 
   return (
     <div className="cities__right-section">
-      <Map city={city} points={cardsData} selectedPoint={selectedPoint} />
+      <MapScreen city={city} points={cardsData} selectedPoint={selectedPoint} />
     </div>
   );
 }

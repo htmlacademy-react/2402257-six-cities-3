@@ -20,6 +20,18 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+enum ContainerRatingType {
+  Review = 'reviews',
+  Offer = 'offer',
+  Place = 'place',
+  Main = 'main',
+}
+
+enum PageType {
+  Main = 'main',
+  Offer = 'offer',
+}
+
 const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 
@@ -32,4 +44,6 @@ export {
   AuthorizationStatus,
   URL_MARKER_DEFAULT,
   URL_MARKER_CURRENT,
+  ContainerRatingType,
+  PageType,
 };

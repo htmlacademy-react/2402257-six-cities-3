@@ -23,7 +23,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-function Map(props: MapProps): JSX.Element {
+function MapScreen(props: MapProps): JSX.Element {
   const { city, points, selectedPoint } = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -60,4 +60,4 @@ function Map(props: MapProps): JSX.Element {
   );
 }
 
-export default Map;
+export default MapScreen;

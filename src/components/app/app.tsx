@@ -1,5 +1,5 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, PageType } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main/main-screen';
 import LoginScreen from '../../pages/login/login-screen';
@@ -8,7 +8,12 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useState } from 'react';
-import { City, Points, CardComments } from '../../types/types';
+import {
+  Points,
+  CardComments,
+  DetailedOffer,
+  OffersNearby,
+} from '../../types/types';
 
 type AppScreenProps = {
   loggedHeaderData: {
@@ -20,7 +25,8 @@ type AppScreenProps = {
     key: number;
   }[];
   cardsComments: CardComments;
-  city: City;
+  offersData: DetailedOffer[];
+  offersNearby: OffersNearby[];
 };
 
 function App({
@@ -28,7 +34,8 @@ function App({
   cardsComments,
   cardsData,
   cities,
-  city,
+  offersData,
+  offersNearby,
 }: AppScreenProps): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | number | null>(
     null
@@ -48,7 +55,7 @@ function App({
                 onOfferHover={(id: string | number) => {
                   setActiveOfferId(id);
                 }}
-                city={city}
+                pageType={PageType.Main}
               />
             }
           />
@@ -60,6 +67,9 @@ function App({
                 loggedHeaderData={loggedHeaderData}
                 cardsData={cardsData}
                 cardsComments={cardsComments}
+                offerData={offersData[3]}
+                offersNearby={offersNearby}
+                authorizationStatus={AuthorizationStatus.Auth}
               />
             }
           />

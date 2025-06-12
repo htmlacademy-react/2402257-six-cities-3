@@ -3,8 +3,8 @@ import PlacesLeftScreen from '../../components/places-left/places-left-screen';
 import PlacesRightScreen from '../../components/places-right/places-right-screen';
 import LocationsMenuScreen from '../../components/locations-menu/locations-menu-screen';
 import { Helmet } from 'react-helmet-async';
-import { City, Points } from '../../types/types';
-
+import { Points } from '../../types/types';
+import { PageType } from '../../const';
 type MainScreenProps = {
   loggedHeaderData: {
     email: string;
@@ -13,7 +13,7 @@ type MainScreenProps = {
   cities: { name: string; key: number }[];
   activeOfferId: string | number | null;
   onOfferHover: (id: string | number) => void;
-  city: City;
+  pageType: PageType.Main;
 };
 
 function MainScreen({
@@ -22,7 +22,7 @@ function MainScreen({
   cities,
   activeOfferId,
   onOfferHover,
-  city,
+  pageType,
 }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
@@ -41,11 +41,12 @@ function MainScreen({
               cardsData={cardsData}
               foundedPlacesCount={cardsData.length}
               onOfferHover={onOfferHover}
+              pageType={pageType}
             />
             <PlacesRightScreen
               activeOfferId={activeOfferId}
               cardsData={cardsData}
-              city={city}
+              city={cardsData[0].city}
             />
           </div>
         </div>
