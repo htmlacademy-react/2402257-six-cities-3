@@ -2,23 +2,12 @@ import HeaderScreen from '../../components/header/header-screen';
 import FavoritesEmptyScreen from '../../components/favorites-empty/favorites-empty-screen';
 import FavoritesListScreen from '../../components/favorites-list/favorites-list-screen';
 import { Helmet } from 'react-helmet-async';
-
+import { Points } from '../../types/types';
 type FavoritesScreenProps = {
   loggedHeaderData: {
     email: string;
   };
-  cardsData: {
-    id: string;
-    title: string;
-    type: string;
-    price: number;
-    city: {
-      name: string;
-    };
-    isFavorite: boolean;
-    isPremium: boolean;
-    previewImage: string;
-  }[];
+  cardsData: Points;
 };
 
 function FavoritesScreen({

@@ -1,5 +1,5 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, PageType } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main/main-screen';
 import LoginScreen from '../../pages/login/login-screen';
@@ -8,38 +8,25 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useState } from 'react';
+import {
+  Points,
+  CardComments,
+  DetailedOffer,
+  OffersNearby,
+} from '../../types/types';
 
 type AppScreenProps = {
   loggedHeaderData: {
     email: string;
   };
-  cardsData: {
-    id: string;
-    title: string;
-    type: string;
-    price: number;
-    city: {
-      name: string;
-    };
-    isFavorite: boolean;
-    isPremium: boolean;
-    previewImage: string;
-  }[];
+  cardsData: Points;
   cities: {
     name: string;
     key: number;
   }[];
-  cardsComments: {
-    id: string;
-    date: string;
-    user: {
-      name: string;
-      avatarUrl: string;
-      isPro: boolean;
-    };
-    comment: string;
-    rating: number;
-  }[];
+  cardsComments: CardComments;
+  offersData: DetailedOffer[];
+  offersNearby: OffersNearby[];
 };
 
 function App({
@@ -47,6 +34,8 @@ function App({
   cardsComments,
   cardsData,
   cities,
+  offersData,
+  offersNearby,
 }: AppScreenProps): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | number | null>(
     null
@@ -66,6 +55,7 @@ function App({
                 onOfferHover={(id: string | number) => {
                   setActiveOfferId(id);
                 }}
+                pageType={PageType.Main}
               />
             }
           />
@@ -77,6 +67,9 @@ function App({
                 loggedHeaderData={loggedHeaderData}
                 cardsData={cardsData}
                 cardsComments={cardsComments}
+                offerData={offersData[3]}
+                offersNearby={offersNearby}
+                authorizationStatus={AuthorizationStatus.Auth}
               />
             }
           />
