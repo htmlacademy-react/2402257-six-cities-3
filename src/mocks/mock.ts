@@ -125,12 +125,36 @@ const cardsData = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Macaca_nigra_self-portrait_large.jpg/250px-Macaca_nigra_self-portrait_large.jpg',
   },
   {
+    id: 'banaj',
+    title: 'PUPSIKI',
+    type: 'apartment',
+    price: 120,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: true,
+    rating: 4,
+    previewImage:
+      'https://cdnn1.img.sputnik.az/img/41701/28/417012809_132:0:1287:1270_1920x0_80_0_0_9b503a56777f76bb9c6c3d845adff98b.jpg',
+  },
+  {
     id: 'bublik',
     title: 'Banana Republic Suite',
     type: 'villa',
     price: 300,
     city: {
-      name: 'Amsterdam',
+      name: 'Cologne',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
@@ -154,7 +178,7 @@ const cardsData = [
     type: 'cottage',
     price: 85,
     city: {
-      name: 'Amsterdam',
+      name: 'Brussels',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
@@ -178,7 +202,7 @@ const cardsData = [
     type: 'loft',
     price: 180,
     city: {
-      name: 'Amsterdam',
+      name: 'Hamburg',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
@@ -195,6 +219,30 @@ const cardsData = [
     rating: 4.7,
     previewImage: 'https://i.redd.it/xaq1imzl871e1.png',
   },
+  {
+    id: 'kurochka',
+    title: 'Yacht Gold Club',
+    type: 'yacht',
+    price: 180,
+    city: {
+      name: 'Dusseldorf',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.7,
+    previewImage:
+      'https://dasart.ru/userdata/image/CQ/8e/CQ8egJJl5DLsGKwv.webp',
+  },
 ];
 
 const offersData = [
@@ -204,7 +252,7 @@ const offersData = [
     type: 'apartment',
     price: 12345,
     city: {
-      name: 'Amsterdam',
+      name: 'Dusseldorf',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
@@ -243,7 +291,7 @@ const offersData = [
     type: 'villa',
     price: 300,
     city: {
-      name: 'Amsterdam',
+      name: 'Cologne',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
@@ -323,7 +371,7 @@ const offersData = [
     type: 'loft',
     price: 180,
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
@@ -362,6 +410,45 @@ const offersData = [
       'https://images.unsplash.com/photo-1564013799919-ab600027ffc6',
     ],
     maxAdults: 4,
+  },
+  {
+    id: 'kalnazka',
+    title: 'Salamalekum salaaaaaam',
+    type: 'apartment',
+    price: 12345,
+    city: {
+      name: 'Brussels',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: true,
+    rating: 3.5,
+    description:
+      'Bright apartment with canal views near Central Station. Recently renovated with designer furniture.',
+    bedrooms: 1,
+    goods: ['Wi-Fi', 'Heating', 'Kitchen', 'Coffee machine', 'Baby seat'],
+    host: {
+      name: 'Anna Vander',
+      avatarUrl: 'https://i.pravatar.cc/150?img=12',
+      isPro: true,
+    },
+    images: [
+      'https://images.unsplash.com/photo-1554995207-c18c203602cb',
+      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c',
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00',
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a',
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688',
+    ],
+    maxAdults: 2,
   },
 ];
 
