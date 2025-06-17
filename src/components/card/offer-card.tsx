@@ -1,22 +1,37 @@
 import { Link } from 'react-router-dom';
+import { PageType } from '../../const';
+import cn from 'classnames';
+import { OffersNearby } from '../../types/types';
+import RatingScreen from '../rating/rating-screen';
+import { ContainerRatingType } from '../../const';
 
 type CardProps = {
-  cardData: {
-    id: number | string;
-    title: string;
-    type: string;
-    price: number;
-    isFavorite: boolean;
-    isPremium: boolean;
-    previewImage: string;
-  };
+  cardData: OffersNearby;
   onOfferHover: (id: number | string) => void;
+  pageType: PageType.Main | PageType.Offer;
+  containerType: ContainerRatingType.Place | ContainerRatingType.Main;
 };
 
-function OfferCard({ cardData, onOfferHover }: CardProps): JSX.Element {
+function OfferCardScreen({
+  cardData,
+  onOfferHover,
+  pageType,
+  containerType,
+}: CardProps): JSX.Element {
+  let isMain = false;
+
+  if (pageType === PageType.Main) {
+    isMain = true;
+  }
+
   return (
     <article
-      className="cities__card place-card"
+      className={cn(
+        'place-card',
+        // prettier-ignore
+        { 'cities__card': isMain },
+        { 'near-places__card': !isMain }
+      )}
       onMouseOver={() => onOfferHover(cardData.id)}
     >
       {cardData.isPremium ? (
@@ -24,7 +39,14 @@ function OfferCard({ cardData, onOfferHover }: CardProps): JSX.Element {
       ) : (
         ''
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div
+        className={cn(
+          'place-card__image-wrapper',
+          // prettier-ignore
+          { 'cities__image-wrapper': isMain },
+          { 'near-places__image-wrapper': !isMain }
+        )}
+      >
         <a href="#">
           <img
             className="place-card__image"
@@ -56,10 +78,10 @@ function OfferCard({ cardData, onOfferHover }: CardProps): JSX.Element {
           </button>
         </div>
         <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
-            <span className="visually-hidden">Rating</span>
-          </div>
+          <RatingScreen
+            rating={cardData.rating}
+            containerType={containerType}
+          />
         </div>
         <h2 className="place-card__name">
           <Link
@@ -77,4 +99,4 @@ function OfferCard({ cardData, onOfferHover }: CardProps): JSX.Element {
   );
 }
 
-export default OfferCard;
+export default OfferCardScreen;

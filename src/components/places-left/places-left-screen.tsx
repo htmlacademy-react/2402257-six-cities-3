@@ -1,6 +1,8 @@
-import OfferCard from '../card/offer-card';
+import OfferCardScreen from '../card/offer-card';
 import NoPlacesLeftScreen from '../no-places-left/no-places-left-screen';
 import PlacesFound from '../places-found/places-found';
+import { PageType } from '../../const';
+import { ContainerRatingType } from '../../const';
 
 type CardsDataProps = {
   foundedPlacesCount: number;
@@ -9,16 +11,19 @@ type CardsDataProps = {
     title: string;
     type: string;
     price: number;
+    rating: number;
     isFavorite: boolean;
     isPremium: boolean;
     previewImage: string;
   }[];
   onOfferHover: (id: string | number) => void;
+  pageType: PageType.Main;
 };
 function PlacesLeftScreen({
   cardsData,
   foundedPlacesCount,
   onOfferHover,
+  pageType,
 }: CardsDataProps): JSX.Element {
   if (cardsData.length === 0) {
     return <NoPlacesLeftScreen />;
@@ -53,10 +58,12 @@ function PlacesLeftScreen({
       </form>
       <div className="cities__places-list places__list tabs__content">
         {cardsData.map((card) => (
-          <OfferCard
+          <OfferCardScreen
             key={card.id}
             cardData={card}
             onOfferHover={onOfferHover}
+            pageType={pageType}
+            containerType={ContainerRatingType.Main}
           />
         ))}
       </div>
