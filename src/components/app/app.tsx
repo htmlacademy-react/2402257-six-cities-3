@@ -14,6 +14,7 @@ import {
   DetailedOffer,
   OffersNearby,
 } from '../../types/types';
+import { useAppSelector } from '../../hooks';
 
 type AppScreenProps = {
   loggedHeaderData: {
@@ -40,6 +41,10 @@ function App({
   const [activeOfferId, setActiveOfferId] = useState<string | number | null>(
     null
   );
+
+  const cards = useAppSelector((state) => state.offerList);
+  const favoritesCount = cardsData.filter((card) => card.isFavorite).length;
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -49,13 +54,14 @@ function App({
             element={
               <MainScreen
                 loggedHeaderData={loggedHeaderData}
-                cardsData={cardsData}
+                cardsData={cards}
                 cities={cities}
                 activeOfferId={activeOfferId}
                 onOfferHover={(id: string | number) => {
                   setActiveOfferId(id);
                 }}
                 pageType={PageType.Main}
+                favoritesCount={favoritesCount}
               />
             }
           />
@@ -70,6 +76,7 @@ function App({
                 offerData={offersData[3]}
                 offersNearby={offersNearby}
                 authorizationStatus={AuthorizationStatus.Auth}
+                favoritesCount={favoritesCount}
               />
             }
           />
@@ -80,6 +87,7 @@ function App({
                 <FavoritesScreen
                   loggedHeaderData={loggedHeaderData}
                   cardsData={cardsData}
+                  favoritesCount={favoritesCount}
                 />
               </PrivateRoute>
             }

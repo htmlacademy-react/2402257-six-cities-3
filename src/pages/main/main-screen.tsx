@@ -14,6 +14,7 @@ type MainScreenProps = {
   activeOfferId: string | number | null;
   onOfferHover: (id: string | number) => void;
   pageType: PageType.Main;
+  favoritesCount: number;
 };
 
 function MainScreen({
@@ -23,13 +24,17 @@ function MainScreen({
   activeOfferId,
   onOfferHover,
   pageType,
+  favoritesCount,
 }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
         <title>Главная страница</title>
       </Helmet>
-      <HeaderScreen headerData={loggedHeaderData} cardsData={cardsData} />
+      <HeaderScreen
+        headerData={loggedHeaderData}
+        favoritesCount={favoritesCount}
+      />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

@@ -8,11 +8,13 @@ type FavoritesScreenProps = {
     email: string;
   };
   cardsData: Points;
+  favoritesCount: number;
 };
 
 function FavoritesScreen({
   loggedHeaderData,
   cardsData,
+  favoritesCount,
 }: FavoritesScreenProps): JSX.Element {
   const favoritesOffers = cardsData.filter((offer) => offer.isFavorite);
   const cities = new Set(cardsData.map((offer) => offer.city.name));
@@ -22,7 +24,10 @@ function FavoritesScreen({
       <Helmet>
         <title>Избранные предложения</title>
       </Helmet>
-      <HeaderScreen headerData={loggedHeaderData} cardsData={cardsData} />
+      <HeaderScreen
+        headerData={loggedHeaderData}
+        favoritesCount={favoritesCount}
+      />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           {cities.size === 0 ? (

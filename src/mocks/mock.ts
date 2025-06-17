@@ -132,14 +132,14 @@ const cardsData = [
     city: {
       name: 'Paris',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 48.8566,
+        longitude: 2.3522,
         zoom: 8,
       },
     },
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      latitude: 48.8566,
+      longitude: 2.3522,
       zoom: 8,
     },
     isFavorite: true,
@@ -156,14 +156,14 @@ const cardsData = [
     city: {
       name: 'Cologne',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 50.9375,
+        longitude: 6.9603,
         zoom: 8,
       },
     },
     location: {
-      latitude: 52.3609553943508,
-      longitude: 4.85309666406198,
+      latitude: 50.9375,
+      longitude: 6.9603,
       zoom: 8,
     },
     isFavorite: false,
@@ -180,14 +180,14 @@ const cardsData = [
     city: {
       name: 'Brussels',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 50.8503,
+        longitude: 4.3517,
         zoom: 8,
       },
     },
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.929309666406198,
+      latitude: 50.8503,
+      longitude: 4.3517,
       zoom: 8,
     },
     isFavorite: true,
@@ -204,14 +204,14 @@ const cardsData = [
     city: {
       name: 'Hamburg',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 53.5511,
+        longitude: 9.9937,
         zoom: 8,
       },
     },
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
+      latitude: 53.5511,
+      longitude: 9.9937,
       zoom: 8,
     },
     isFavorite: false,
@@ -227,19 +227,495 @@ const cardsData = [
     city: {
       name: 'Dusseldorf',
       location: {
+        latitude: 51.2277,
+        longitude: 6.7735,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 51.2277,
+      longitude: 6.7735,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.7,
+    previewImage:
+      'https://dasart.ru/userdata/image/CQ/8e/CQ8egJJl5DLsGKwv.webp',
+  },
+  {
+    id: 'new-card-0',
+    title: 'City View Apartment',
+    type: 'apartment',
+    price: 150,
+    city: {
+      name: 'Amsterdam',
+      location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
         zoom: 8,
       },
     },
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
+      latitude: 52.385,
+      longitude: 4.895,
       zoom: 8,
     },
     isFavorite: false,
     isPremium: true,
+    rating: 4.2,
+    previewImage:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9Pe_qxbisVDvuiRtzPE4Da2u9KQCvkTRQ1w&s',
+  },
+  {
+    id: 'new-card-1',
+    title: 'Luxury Loft',
+    type: 'loft',
+    price: 220,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.8566,
+        longitude: 2.3522,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 48.862,
+      longitude: 2.345,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: true,
+    rating: 4.8,
+    previewImage:
+      'https://cdnn1.img.sputnik.az/img/41701/28/417012809_132:0:1287:1270_1920x0_80_0_0_9b503a56777f76bb9c6c3d845adff98b.jpg',
+  },
+  {
+    id: 'new-card-2',
+    title: 'Modern Studio',
+    type: 'studio',
+    price: 95,
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.9375,
+        longitude: 6.9603,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 50.945,
+      longitude: 6.975,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 3.5,
+    previewImage:
+      'https://i.pinimg.com/736x/36/aa/52/36aa52b185fab4b891738960ba53aeed.jpg',
+  },
+  {
+    id: 'new-card-3',
+    title: 'Chic Penthouse',
+    type: 'penthouse',
+    price: 310,
+    city: {
+      name: 'Brussels',
+      location: {
+        latitude: 50.8503,
+        longitude: 4.3517,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 50.855,
+      longitude: 4.36,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: true,
+    rating: 4.9,
+    previewImage: 'https://i.redd.it/xaq1imzl871e1.png',
+  },
+  {
+    id: 'new-card-4',
+    title: 'Seaside Villa',
+    type: 'villa',
+    price: 280,
+    city: {
+      name: 'Hamburg',
+      location: {
+        latitude: 53.5511,
+        longitude: 9.9937,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 53.545,
+      longitude: 10.005,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.6,
+    previewImage:
+      'https://dasart.ru/userdata/image/CQ/8e/CQ8egJJl5DLsGKwv.webp',
+  },
+  {
+    id: 'new-card-5',
+    title: 'Downtown Cottage',
+    type: 'cottage',
+    price: 110,
+    city: {
+      name: 'Dusseldorf',
+      location: {
+        latitude: 51.2277,
+        longitude: 6.7735,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 51.235,
+      longitude: 6.785,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 3.9,
+    previewImage:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Macaca_nigra_self-portrait_large.jpg/250px-Macaca_nigra_self-portrait_large.jpg',
+  },
+  {
+    id: 'new-card-6',
+    title: 'Riverside Apartment',
+    type: 'apartment',
+    price: 130,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.365,
+      longitude: 4.685,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.1,
+    previewImage:
+      'https://cdnn1.img.sputnik.az/img/41701/28/417012809_132:0:1287:1270_1920x0_80_0_0_9b503a56777f76bb9c6c3d845adff98b.jpg',
+  },
+  {
+    id: 'new-card-7',
+    title: 'Historic Loft',
+    type: 'loft',
+    price: 180,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.8566,
+        longitude: 2.3522,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 48.851,
+      longitude: 2.348,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 4.3,
+    previewImage:
+      'https://i.pinimg.com/736x/36/aa/52/36aa52b185fab4b891738960ba53aeed.jpg',
+  },
+  {
+    id: 'new-card-8',
+    title: 'Garden Studio',
+    type: 'studio',
+    price: 100,
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.9375,
+        longitude: 6.9603,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 50.942,
+      longitude: 6.955,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.0,
+    previewImage: 'https://i.redd.it/xaq1imzl871e1.png',
+  },
+  {
+    id: 'new-card-9',
+    title: 'Executive Penthouse',
+    type: 'penthouse',
+    price: 350,
+    city: {
+      name: 'Brussels',
+      location: {
+        latitude: 50.8503,
+        longitude: 4.3517,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 50.848,
+      longitude: 4.345,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: true,
     rating: 4.7,
+    previewImage:
+      'https://dasart.ru/userdata/image/CQ/8e/CQ8egJJl5DLsGKwv.webp',
+  },
+  {
+    id: 'new-card-10',
+    title: 'Lakeside Villa',
+    type: 'villa',
+    price: 290,
+    city: {
+      name: 'Hamburg',
+      location: {
+        latitude: 53.5511,
+        longitude: 9.9937,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 53.557,
+      longitude: 9.985,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.4,
+    previewImage:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Macaca_nigra_self-portrait_large.jpg/250px-Macaca_nigra_self-portrait_large.jpg',
+  },
+  {
+    id: 'new-card-11',
+    title: 'Urban Cottage',
+    type: 'cottage',
+    price: 120,
+    city: {
+      name: 'Dusseldorf',
+      location: {
+        latitude: 51.2277,
+        longitude: 6.7735,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 51.223,
+      longitude: 6.765,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 3.8,
+    previewImage:
+      'https://cdnn1.img.sputnik.az/img/41701/28/417012809_132:0:1287:1270_1920x0_80_0_0_9b503a56777f76bb9c6c3d845adff98b.jpg',
+  },
+  {
+    id: 'new-card-12',
+    title: 'Central Apartment',
+    type: 'apartment',
+    price: 160,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.362,
+      longitude: 4.682,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: true,
+    rating: 4.5,
+    previewImage:
+      'https://i.pinimg.com/736x/36/aa/52/36aa52b185fab4b891738960ba53aeed.jpg',
+  },
+  {
+    id: 'new-card-13',
+    title: 'Artistic Loft',
+    type: 'loft',
+    price: 200,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.8566,
+        longitude: 2.3522,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 48.859,
+      longitude: 2.36,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 4.2,
+    previewImage: 'https://i.redd.it/xaq1imzl871e1.png',
+  },
+  {
+    id: 'new-card-14',
+    title: 'Cozy Studio',
+    type: 'studio',
+    price: 90,
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.9375,
+        longitude: 6.9603,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 50.932,
+      longitude: 6.95,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 3.7,
+    previewImage:
+      'https://dasart.ru/userdata/image/CQ/8e/CQ8egJJl5DLsGKwv.webp',
+  },
+  {
+    id: 'new-card-15',
+    title: 'Skyline Penthouse',
+    type: 'penthouse',
+    price: 320,
+    city: {
+      name: 'Brussels',
+      location: {
+        latitude: 50.8503,
+        longitude: 4.3517,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 50.847,
+      longitude: 4.358,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: true,
+    rating: 4.9,
+    previewImage:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Macaca_nigra_self-portrait_large.jpg/250px-Macaca_nigra_self-portrait_large.jpg',
+  },
+  {
+    id: 'new-card-16',
+    title: 'Modern Villa',
+    type: 'villa',
+    price: 270,
+    city: {
+      name: 'Hamburg',
+      location: {
+        latitude: 53.5511,
+        longitude: 9.9937,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 53.549,
+      longitude: 10.002,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.3,
+    previewImage:
+      'https://cdnn1.img.sputnik.az/img/41701/28/417012809_132:0:1287:1270_1920x0_80_0_0_9b503a56777f76bb9c6c3d845adff98b.jpg',
+  },
+  {
+    id: 'new-card-17',
+    title: 'Quaint Cottage',
+    type: 'cottage',
+    price: 105,
+    city: {
+      name: 'Dusseldorf',
+      location: {
+        latitude: 51.2277,
+        longitude: 6.7735,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 51.23,
+      longitude: 6.78,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 3.6,
+    previewImage:
+      'https://i.pinimg.com/736x/36/aa/52/36aa52b185fab4b891738960ba53aeed.jpg',
+  },
+  {
+    id: 'new-card-18',
+    title: 'Canal View Apartment',
+    type: 'apartment',
+    price: 170,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.358,
+      longitude: 4.668,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.6,
+    previewImage: 'https://i.redd.it/xaq1imzl871e1.png',
+  },
+  {
+    id: 'new-card-19',
+    title: 'Luxury Villa Suite',
+    type: 'villa',
+    price: 330,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.8566,
+        longitude: 2.3522,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 48.853,
+      longitude: 2.347,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: true,
+    rating: 4.8,
     previewImage:
       'https://dasart.ru/userdata/image/CQ/8e/CQ8egJJl5DLsGKwv.webp',
   },

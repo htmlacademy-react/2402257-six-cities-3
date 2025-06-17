@@ -22,6 +22,7 @@ type OfferScreenProps = {
   offerData: DetailedOffer;
   offersNearby: OffersNearby[];
   authorizationStatus: AuthorizationStatus.Auth | AuthorizationStatus.NoAuth;
+  favoritesCount: number;
 };
 function OfferScreen({
   loggedHeaderData,
@@ -30,6 +31,7 @@ function OfferScreen({
   offerData,
   offersNearby,
   authorizationStatus,
+  favoritesCount,
 }: OfferScreenProps): JSX.Element {
   const bedrooms =
     offerData.bedrooms > 1 ? `${offerData.bedrooms} Bedrooms` : '1 Bedroom';
@@ -43,7 +45,10 @@ function OfferScreen({
       <Helmet>
         <title>Персонализированное предложения</title>
       </Helmet>
-      <HeaderScreen headerData={loggedHeaderData} cardsData={cardsData} />
+      <HeaderScreen
+        headerData={loggedHeaderData}
+        favoritesCount={favoritesCount}
+      />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
