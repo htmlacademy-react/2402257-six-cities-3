@@ -31,7 +31,7 @@ function ReviewItemScreen({ commentData }: CommentDataProps): JSX.Element {
         </div>
         <p className="reviews__text">
           A quiet cozy and picturesque that hides behind a a river by the unique
-          lightness of Amsterdam. The building is green and from 18th century.
+          lightness of Amsterdam. The building is green and from 18th centuryy.
         </p>
         <time
           className="reviews__time"
