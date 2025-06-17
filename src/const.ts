@@ -34,11 +34,9 @@ enum PageType {
 
 const FIRST_LOAD_CITY = 'Paris';
 
-const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+const URL_MARKER_DEFAULT = '../img/pin.svg';
 
-const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+const URL_MARKER_CURRENT = '../img/pin-active.svg';
 
 export {
   cities,

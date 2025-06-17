@@ -8,6 +8,7 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useState } from 'react';
+import { getUniqueCities } from '../../logic/header-cities';
 import {
   Points,
   CardComments,
@@ -43,6 +44,11 @@ function App({
   );
 
   const cards = useAppSelector((state) => state.offerList);
+  const currentCityName = useAppSelector((state) => state.currentCity);
+
+  const currentCityData = getUniqueCities(cardsData).filter(
+    (city) => city.name === currentCityName
+  )[0];
   const favoritesCount = cardsData.filter((card) => card.isFavorite).length;
 
   return (
@@ -62,6 +68,7 @@ function App({
                 }}
                 pageType={PageType.Main}
                 favoritesCount={favoritesCount}
+                currentCityData={currentCityData}
               />
             }
           />
