@@ -49,6 +49,7 @@ function MainScreen({
               foundedPlacesCount={cardsData.length}
               onOfferHover={onOfferHover}
               pageType={pageType}
+              currentCity={currentCityData.name}
             />
             <PlacesRightScreen
               activeOfferId={activeOfferId}

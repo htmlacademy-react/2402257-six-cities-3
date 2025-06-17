@@ -1,11 +1,15 @@
 type FoundedPlacesCount = {
   foundedPlacesCount: number;
+  city: string;
 };
 
-function PlacesFound({ foundedPlacesCount }: FoundedPlacesCount): JSX.Element {
+function PlacesFound({
+  foundedPlacesCount,
+  city,
+}: FoundedPlacesCount): JSX.Element {
   return (
     <b className="places__found">
-      {foundedPlacesCount} places to stay in Amsterdam
+      {foundedPlacesCount} places to stay in {city}
     </b>
   );
 }

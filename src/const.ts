@@ -14,6 +14,12 @@ enum AppRoute {
   Favorites = '/favorites',
 }
 
+enum SortTypes {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -46,5 +52,6 @@ export {
   URL_MARKER_CURRENT,
   ContainerRatingType,
   PageType,
+  SortTypes,
   FIRST_LOAD_CITY,
 };
