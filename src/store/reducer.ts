@@ -18,7 +18,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(sortOffers, (state, action) => {
     if (action.payload === SortTypes.Popular) {
-      state.offerList = cardsData;
+      state.offerList = filterOffersByCity(cardsData, state.currentCity);
       return;
     }
     state.offerList = sortCurrentOffers(state.offerList, action.payload);

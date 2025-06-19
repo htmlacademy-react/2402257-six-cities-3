@@ -3,7 +3,6 @@ import NoPlacesLeftScreen from '../no-places-left/no-places-left-screen';
 import PlacesFound from '../places-found/places-found';
 import { PageType } from '../../const';
 import { ContainerRatingType } from '../../const';
-import { useState } from 'react';
 import PlacesSortingScreen from '../places-sorting/places-sorting-screen';
 type CardsDataProps = {
   foundedPlacesCount: number;
@@ -28,8 +27,6 @@ function PlacesLeftScreen({
   pageType,
   currentCity,
 }: CardsDataProps): JSX.Element {
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-
   if (cardsData.length === 0) {
     return <NoPlacesLeftScreen />;
   }
@@ -39,20 +36,7 @@ function PlacesLeftScreen({
       <h2 className="visually-hidden">Places</h2>
       <PlacesFound foundedPlacesCount={foundedPlacesCount} city={currentCity} />
       <form className="places__sorting" action="#" method="get">
-        <span className="places__sorting-caption">Sort by</span>
-        <span
-          className="places__sorting-type"
-          tabIndex={0}
-          onClick={() => {
-            setIsClicked(!isClicked);
-          }}
-        >
-          {isClicked ? <PlacesSortingScreen /> : ''}
-          Popular
-          <svg className="places__sorting-arrow" width={7} height={4}>
-            <use xlinkHref="#icon-arrow-select" />
-          </svg>
-        </span>
+        <PlacesSortingScreen />
       </form>
       <div className="cities__places-list places__list tabs__content">
         {cardsData.map((card) => (
