@@ -8,12 +8,7 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useState } from 'react';
-import {
-  Points,
-  CardComments,
-  DetailedOffer,
-  OffersNearby,
-} from '../../types/types';
+import { Points, CardComments, DetailedOffer } from '../../types/types';
 
 type AppScreenProps = {
   loggedHeaderData: {
@@ -26,7 +21,7 @@ type AppScreenProps = {
   }[];
   cardsComments: CardComments;
   offersData: DetailedOffer[];
-  offersNearby: OffersNearby[];
+  offersNearby: Points;
 };
 
 function App({

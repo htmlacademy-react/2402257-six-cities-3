@@ -10,7 +10,7 @@ import cn from 'classnames';
 import { PageType } from '../../const';
 import OfferCardScreen from '../../components/card/offer-card';
 import MapScreen from '../../components/map/map';
-import { OffersNearby } from '../../types/types';
+import { Points } from '../../types/types';
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 
@@ -20,7 +20,7 @@ type OfferScreenProps = {
   };
   cardsComments: CardComments;
   offerData: DetailedOffer;
-  offersNearby: OffersNearby[];
+  offersNearby: Points;
   authorizationStatus: AuthorizationStatus.Auth | AuthorizationStatus.NoAuth;
   favoritesCount: number;
 };
@@ -164,7 +164,7 @@ function OfferScreen({
           </div>
           <MapScreen
             city={offerData.city}
-            points={cards}
+            points={offersNearby}
             selectedPoint={cards.find((card) => card.id === offerData.id)}
           />
         </section>
