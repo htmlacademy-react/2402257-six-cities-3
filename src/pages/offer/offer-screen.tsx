@@ -2,7 +2,7 @@ import HeaderScreen from '../../components/header/header-screen';
 import { Helmet } from 'react-helmet-async';
 import ReviewItemScreen from '../../components/review-item/review-item-screen';
 import CommentFormScreen from '../../components/comment-form/comment-form-screen';
-import { CardComments, Points, DetailedOffer } from '../../types/types';
+import { CardComments, DetailedOffer } from '../../types/types';
 import OfferImgScreen from '../../components/offer-img/offer-img-screen';
 import RatingScreen from '../../components/rating/rating-screen';
 import { ContainerRatingType } from '../../const';
@@ -12,12 +12,12 @@ import OfferCardScreen from '../../components/card/offer-card';
 import MapScreen from '../../components/map/map';
 import { OffersNearby } from '../../types/types';
 import { AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
 
 type OfferScreenProps = {
   loggedHeaderData: {
     email: string;
   };
-  cardsData: Points;
   cardsComments: CardComments;
   offerData: DetailedOffer;
   offersNearby: OffersNearby[];
@@ -26,13 +26,14 @@ type OfferScreenProps = {
 };
 function OfferScreen({
   loggedHeaderData,
-  cardsData,
   cardsComments,
   offerData,
   offersNearby,
   authorizationStatus,
   favoritesCount,
 }: OfferScreenProps): JSX.Element {
+  const cards = useAppSelector((state) => state.offerList);
+
   const bedrooms =
     offerData.bedrooms > 1 ? `${offerData.bedrooms} Bedrooms` : '1 Bedroom';
   const guests =
@@ -163,8 +164,8 @@ function OfferScreen({
           </div>
           <MapScreen
             city={offerData.city}
-            points={cardsData}
-            selectedPoint={cardsData.find((card) => card.id === offerData.id)}
+            points={cards}
+            selectedPoint={cards.find((card) => card.id === offerData.id)}
           />
         </section>
         <div className="container">

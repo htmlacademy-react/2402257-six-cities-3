@@ -4,11 +4,15 @@ import { filterOffersByCity } from '../logic/filter-offers';
 import { cardsData } from '../mocks/mock';
 import { FIRST_LOAD_CITY, SortTypes } from '../const';
 import { sortCurrentOffers } from '../logic/sort-offers';
+import { getFavoritesOffers } from '../logic/get-favorites-offers';
+import { getUniqCities } from '../logic/get-uniq-cities';
 
 const initialState = {
   currentCity: 'Paris',
   offerList: filterOffersByCity(cardsData, FIRST_LOAD_CITY),
   sorting: SortTypes.Popular,
+  favoritesOffers: getFavoritesOffers(cardsData),
+  citiesData: getUniqCities(cardsData),
 };
 
 const reducer = createReducer(initialState, (builder) => {

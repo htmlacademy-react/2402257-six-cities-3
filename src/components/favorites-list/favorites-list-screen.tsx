@@ -10,6 +10,7 @@ function FavoritesListScreen({
   favoritesOffers,
   cities,
 }: FavoritesListScreenProps): JSX.Element {
+  console.log(cities);
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>

@@ -68,7 +68,6 @@ function App({
             element={
               <OfferScreen
                 loggedHeaderData={loggedHeaderData}
-                cardsData={cardsData}
                 cardsComments={cardsComments}
                 offerData={offersData[3]}
                 offersNearby={offersNearby}
@@ -83,7 +82,6 @@ function App({
               <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
                 <FavoritesScreen
                   loggedHeaderData={loggedHeaderData}
-                  cardsData={cardsData}
                   favoritesCount={favoritesCount}
                 />
               </PrivateRoute>

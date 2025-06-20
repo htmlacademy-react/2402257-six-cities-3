@@ -8,7 +8,11 @@ type FavoritesLocationListProps = {
 function FavoritesLocationList({
   name,
   favoritesOffers,
-}: FavoritesLocationListProps): JSX.Element {
+}: FavoritesLocationListProps): JSX.Element | string {
+  if (!favoritesOffers.some((card) => card.city.name === name)) {
+    return '';
+  }
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
