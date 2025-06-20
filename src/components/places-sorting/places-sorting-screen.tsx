@@ -1,37 +1,17 @@
-import { useAppDispatch } from '../../hooks/index';
 import { SortTypes } from '../../const';
 import cn from 'classnames';
 import { Fragment, useState } from 'react';
-
-type SortingState = {
-  popular: boolean;
-  priceLowToHigh: boolean;
-  priceHighToLow: boolean;
-  topRated: boolean;
-};
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
 
 function PlacesSortingScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [sortingState, setSortingState] = useState<SortingState>({
-    popular: true,
-    priceLowToHigh: false,
-    priceHighToLow: false,
-    topRated: false,
-  });
-  const [activeSorting, setActiveSorting] = useState<SortTypes>(
-    SortTypes.Popular
-  );
+  const activeSortingType = useAppSelector((state) => state.sorting);
+
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
-  const handleSortingChange = (type: SortTypes, key: keyof SortingState) => {
+  const handleSortingChange = (type: SortTypes) => {
     dispatch({ type: 'sortOffers', payload: type });
-    setSortingState({
-      popular: false,
-      priceLowToHigh: false,
-      priceHighToLow: false,
-      topRated: false,
-      [key]: true,
-    });
+    dispatch({ type: 'changeSortingType', payload: type });
   };
 
   return (
@@ -68,13 +48,11 @@ function PlacesSortingScreen(): JSX.Element {
             <li
               key={key}
               className={cn('places__option', {
-                'places__option--active':
-                  sortingState[key as keyof SortingState],
+                'places__option--active': type === activeSortingType,
               })}
               tabIndex={0}
               onClick={() => {
-                handleSortingChange(type, key as keyof SortingState);
-                setActiveSorting(type);
+                handleSortingChange(type);
                 //prettier-ignore
               }}
             >
@@ -82,7 +60,7 @@ function PlacesSortingScreen(): JSX.Element {
             </li>
           ))}
         </ul>
-        {activeSorting}
+        {activeSortingType}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>

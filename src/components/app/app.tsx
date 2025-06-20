@@ -8,14 +8,12 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useState } from 'react';
-import { getUniqueCities } from '../../logic/header-cities';
 import {
   Points,
   CardComments,
   DetailedOffer,
   OffersNearby,
 } from '../../types/types';
-import { useAppSelector } from '../../hooks';
 
 type AppScreenProps = {
   loggedHeaderData: {
@@ -43,12 +41,6 @@ function App({
     null
   );
 
-  const cards = useAppSelector((state) => state.offerList);
-  const currentCityName = useAppSelector((state) => state.currentCity);
-
-  const currentCityData = getUniqueCities(cardsData).filter(
-    (city) => city.name === currentCityName
-  )[0];
   const favoritesCount = cardsData.filter((card) => card.isFavorite).length;
 
   return (
@@ -60,7 +52,6 @@ function App({
             element={
               <MainScreen
                 loggedHeaderData={loggedHeaderData}
-                cardsData={cards}
                 cities={cities}
                 activeOfferId={activeOfferId}
                 onOfferHover={(id: string | number) => {
@@ -68,7 +59,6 @@ function App({
                 }}
                 pageType={PageType.Main}
                 favoritesCount={favoritesCount}
-                currentCityData={currentCityData}
               />
             }
           />
