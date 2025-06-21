@@ -35,7 +35,7 @@ function App({
   const [activeOfferId, setActiveOfferId] = useState<string | number | null>(
     null
   );
-
+  //prettier-ignore
   const favoritesCount = cardsData.filter((card) => card.isFavorite).length;
 
   return (
