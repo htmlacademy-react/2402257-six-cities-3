@@ -8,12 +8,7 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useState } from 'react';
-import {
-  Points,
-  CardComments,
-  DetailedOffer,
-  OffersNearby,
-} from '../../types/types';
+import { Points, CardComments, DetailedOffer } from '../../types/types';
 
 type AppScreenProps = {
   loggedHeaderData: {
@@ -26,7 +21,7 @@ type AppScreenProps = {
   }[];
   cardsComments: CardComments;
   offersData: DetailedOffer[];
-  offersNearby: OffersNearby[];
+  offersNearby: Points;
 };
 
 function App({
@@ -40,6 +35,9 @@ function App({
   const [activeOfferId, setActiveOfferId] = useState<string | number | null>(
     null
   );
+
+  const favoritesCount = cardsData.filter((card) => card.isFavorite).length;
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -49,13 +47,13 @@ function App({
             element={
               <MainScreen
                 loggedHeaderData={loggedHeaderData}
-                cardsData={cardsData}
                 cities={cities}
                 activeOfferId={activeOfferId}
                 onOfferHover={(id: string | number) => {
                   setActiveOfferId(id);
                 }}
                 pageType={PageType.Main}
+                favoritesCount={favoritesCount}
               />
             }
           />
@@ -65,11 +63,11 @@ function App({
             element={
               <OfferScreen
                 loggedHeaderData={loggedHeaderData}
-                cardsData={cardsData}
                 cardsComments={cardsComments}
                 offerData={offersData[3]}
                 offersNearby={offersNearby}
                 authorizationStatus={AuthorizationStatus.Auth}
+                favoritesCount={favoritesCount}
               />
             }
           />
@@ -79,7 +77,7 @@ function App({
               <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
                 <FavoritesScreen
                   loggedHeaderData={loggedHeaderData}
-                  cardsData={cardsData}
+                  favoritesCount={favoritesCount}
                 />
               </PrivateRoute>
             }

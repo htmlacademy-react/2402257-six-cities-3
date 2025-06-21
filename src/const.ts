@@ -14,6 +14,12 @@ enum AppRoute {
   Favorites = '/favorites',
 }
 
+enum SortTypes {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -32,11 +38,11 @@ enum PageType {
   Offer = 'offer',
 }
 
-const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+const FIRST_LOAD_CITY = 'Paris';
 
-const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+const URL_MARKER_DEFAULT = '../img/pin.svg';
+
+const URL_MARKER_CURRENT = '../img/pin-active.svg';
 
 export {
   cities,
@@ -46,4 +52,6 @@ export {
   URL_MARKER_CURRENT,
   ContainerRatingType,
   PageType,
+  SortTypes,
+  FIRST_LOAD_CITY,
 };

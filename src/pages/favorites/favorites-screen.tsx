@@ -2,27 +2,29 @@ import HeaderScreen from '../../components/header/header-screen';
 import FavoritesEmptyScreen from '../../components/favorites-empty/favorites-empty-screen';
 import FavoritesListScreen from '../../components/favorites-list/favorites-list-screen';
 import { Helmet } from 'react-helmet-async';
-import { Points } from '../../types/types';
+import { useAppSelector } from '../../hooks';
 type FavoritesScreenProps = {
   loggedHeaderData: {
     email: string;
   };
-  cardsData: Points;
+  favoritesCount: number;
 };
 
 function FavoritesScreen({
   loggedHeaderData,
-  cardsData,
+  favoritesCount,
 }: FavoritesScreenProps): JSX.Element {
-  const favoritesOffers = cardsData.filter((offer) => offer.isFavorite);
-  const cities = new Set(cardsData.map((offer) => offer.city.name));
-
+  const favoritesOffers = useAppSelector((state) => state.favoritesOffers);
+  const cities = useAppSelector((state) => state.citiesData);
   return (
     <div className="page">
       <Helmet>
         <title>Избранные предложения</title>
       </Helmet>
-      <HeaderScreen headerData={loggedHeaderData} cardsData={cardsData} />
+      <HeaderScreen
+        headerData={loggedHeaderData}
+        favoritesCount={favoritesCount}
+      />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           {cities.size === 0 ? (

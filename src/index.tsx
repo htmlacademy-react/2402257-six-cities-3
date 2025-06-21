@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 import {
   loggedHeaderData,
   cardsData,
@@ -16,13 +18,15 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      loggedHeaderData={loggedHeaderData}
-      cardsComments={commentsData}
-      cardsData={cardsData}
-      cities={cities}
-      offersData={offersData}
-      offersNearby={offersNearby}
-    />
+    <Provider store={store}>
+      <App
+        loggedHeaderData={loggedHeaderData}
+        cardsComments={commentsData}
+        cardsData={cardsData}
+        cities={cities}
+        offersData={offersData}
+        offersNearby={offersNearby}
+      />
+    </Provider>
   </React.StrictMode>
 );

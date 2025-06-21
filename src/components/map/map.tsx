@@ -45,11 +45,16 @@ function MapScreen(props: MapProps): JSX.Element {
           .addTo(markerLayer);
       });
 
+      map.setView({
+        lat: city.location.latitude,
+        lng: city.location.longitude,
+      });
+
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, points, selectedPoint]);
+  }, [map, points, selectedPoint, city]);
 
   return (
     <section
