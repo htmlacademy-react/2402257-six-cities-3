@@ -13,7 +13,7 @@ export const fetchOffersAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/fetchQuestions', async (_arg, { dispatch, extra: api }) => {
+>('fetchOffers', async (_arg, { dispatch, extra: api }) => {
   const { data } = await api.get<Points>(APIRoute.Offers);
   dispatch(loadOffers(data));
 });
