@@ -4,10 +4,11 @@ import {
   changeSortingType,
   sortOffers,
   loadOffers,
+  requireAuthorization,
 } from './action';
 import { filterOffersByCity } from '../logic/filter-offers';
 import { cardsData } from '../mocks/mock';
-import { FIRST_LOAD_CITY, SortTypes } from '../const';
+import { AuthorizationStatus, FIRST_LOAD_CITY, SortTypes } from '../const';
 import { sortCurrentOffers } from '../logic/sort-offers';
 import { getFavoritesOffers } from '../logic/get-favorites-offers';
 import { getUniqCities } from '../logic/get-uniq-cities';
@@ -18,6 +19,7 @@ const initialState = {
   sorting: SortTypes.Popular,
   favoritesOffers: getFavoritesOffers(cardsData),
   citiesData: getUniqCities(cardsData),
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -38,6 +40,9 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(loadOffers, (state, action) => {
     state.offerList = action.payload;
+  });
+  builder.addCase(requireAuthorization, (state, action) => {
+    state.authorizationStatus = action.payload;
   });
 });
 
