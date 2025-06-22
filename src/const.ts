@@ -38,6 +38,13 @@ enum PageType {
   Offer = 'offer',
 }
 
+enum APIRoute {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+  Favorites = '/favorites',
+  Comments = '/comments',
+}
 const FIRST_LOAD_CITY = 'Paris';
 
 const URL_MARKER_DEFAULT = '../img/pin.svg';
@@ -54,4 +61,5 @@ export {
   PageType,
   SortTypes,
   FIRST_LOAD_CITY,
+  APIRoute,
 };
