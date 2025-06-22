@@ -15,10 +15,10 @@ import { getUniqCities } from '../logic/get-uniq-cities';
 
 const initialState = {
   currentCity: 'Paris',
-  offerList: filterOffersByCity(cardsData, FIRST_LOAD_CITY),
+  offerList: filterOffersByCity([], FIRST_LOAD_CITY),
   sorting: SortTypes.Popular,
-  favoritesOffers: getFavoritesOffers(cardsData),
-  citiesData: getUniqCities(cardsData),
+  favoritesOffers: getFavoritesOffers([]),
+  citiesData: getUniqCities([]),
   authorizationStatus: AuthorizationStatus.Unknown,
 };
 
