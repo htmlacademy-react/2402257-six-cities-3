@@ -2,9 +2,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { AxiosInstance } from 'axios';
 import { APIRoute, TIMEOUT_SHOW_ERROR } from '../const';
-import { loadOffers, setError, setOffersDataLoadingStatus } from './action';
+import {
+  getFavoritesOffers,
+  loadOffers,
+  setError,
+  setOffersDataLoadingStatus,
+  setUniqCities,
+} from './action';
 import { Points } from '../types/types.js';
 import { store } from '../store/store.js';
+import { getUniqCities } from '../logic/get-uniq-cities.js';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -17,7 +24,9 @@ export const fetchOffersAction = createAsyncThunk<
 >('fetchOffers', async (_arg, { dispatch, extra: api }) => {
   dispatch(setOffersDataLoadingStatus(true));
   const { data } = await api.get<Points>(APIRoute.Offers);
+  dispatch(getFavoritesOffers(data));
   dispatch(setOffersDataLoadingStatus(false));
+  dispatch(setUniqCities(getUniqCities(data)));
   dispatch(loadOffers(data));
 });
 

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { store } from '../../store/store';
 
 type FavoritesCardProps = {
   cardData: {
@@ -47,6 +48,12 @@ function FavoritesCardScreen({ cardData }: FavoritesCardProps): JSX.Element {
                 : 'place-card__bookmark-button button'
             }
             type="button"
+            onClick={() => {
+              store.dispatch({
+                type: 'setIsFavorite',
+                payload: cardData.id,
+              });
+            }}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />

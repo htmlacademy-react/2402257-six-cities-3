@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { OffersNearby } from '../../types/types';
 import RatingScreen from '../rating/rating-screen';
 import { ContainerRatingType } from '../../const';
+import { store } from '../../store/store.js';
 
 type CardProps = {
   cardData: OffersNearby;
@@ -70,6 +71,12 @@ function OfferCardScreen({
                 : 'place-card__bookmark-button button'
             }
             type="button"
+            onClick={() => {
+              store.dispatch({
+                type: 'setIsFavorite',
+                payload: cardData.id,
+              });
+            }}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />

@@ -14,3 +14,6 @@ export const setError = createAction<string | null>('setError');
 export const setOffersDataLoadingStatus = createAction<boolean>(
   'setOffersDataLoadingStatus'
 );
+export const getFavoritesOffers = createAction<Points>('getFavoritesOffers');
+export const setIsFavorite = createAction<string>('setIsFavorite');
+export const setUniqCities = createAction<Set<string>>('setUniqCities');

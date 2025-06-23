@@ -1,16 +1,17 @@
 import { Link } from 'react-router-dom';
 import LogoScreen from '../logo/logo-screen';
+import { useAppSelector } from '../../hooks';
 
 type HeaderScreenProps = {
   headerData: {
     email: string;
   };
-  favoritesCount: number;
 };
-function HeaderScreen({
-  headerData,
-  favoritesCount,
-}: HeaderScreenProps): JSX.Element {
+function HeaderScreen({ headerData }: HeaderScreenProps): JSX.Element {
+  const favoritesCount = useAppSelector(
+    (state) => state.favoritesOffers
+  ).length;
+
   return (
     <>
       <header className="header">

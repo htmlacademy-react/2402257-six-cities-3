@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import {
   loggedHeaderData,
-  cardsData,
   commentsData,
   offersData,
   offersNearby,
@@ -27,7 +26,6 @@ root.render(
       <App
         loggedHeaderData={loggedHeaderData}
         cardsComments={commentsData}
-        cardsData={cardsData}
         cities={cities}
         offersData={offersData}
         offersNearby={offersNearby}

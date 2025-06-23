@@ -7,12 +7,10 @@ type FavoritesScreenProps = {
   loggedHeaderData: {
     email: string;
   };
-  favoritesCount: number;
 };
 
 function FavoritesScreen({
   loggedHeaderData,
-  favoritesCount,
 }: FavoritesScreenProps): JSX.Element {
   const favoritesOffers = useAppSelector((state) => state.favoritesOffers);
   const cities = useAppSelector((state) => state.citiesData);
@@ -21,10 +19,7 @@ function FavoritesScreen({
       <Helmet>
         <title>Избранные предложения</title>
       </Helmet>
-      <HeaderScreen
-        headerData={loggedHeaderData}
-        favoritesCount={favoritesCount}
-      />
+      <HeaderScreen headerData={loggedHeaderData} />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           {cities.size === 0 ? (

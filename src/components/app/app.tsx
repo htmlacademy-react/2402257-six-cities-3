@@ -16,7 +16,6 @@ type AppScreenProps = {
   loggedHeaderData: {
     email: string;
   };
-  cardsData: Points;
   cities: {
     name: string;
     key: number;
@@ -29,7 +28,6 @@ type AppScreenProps = {
 function App({
   loggedHeaderData,
   cardsComments,
-  cardsData,
   cities,
   offersData,
   offersNearby,
@@ -37,8 +35,7 @@ function App({
   const [activeOfferId, setActiveOfferId] = useState<string | number | null>(
     null
   );
-  //prettier-ignore
-  const favoritesCount = cardsData.filter((card) => card.isFavorite).length;
+
   const isOffersDataLoading = useAppSelector(
     (state) => state.isOffersDataLoading
   );
@@ -61,7 +58,6 @@ function App({
                   setActiveOfferId(id);
                 }}
                 pageType={PageType.Main}
-                favoritesCount={favoritesCount}
               />
             }
           />
@@ -75,7 +71,6 @@ function App({
                 offerData={offersData[3]}
                 offersNearby={offersNearby}
                 authorizationStatus={AuthorizationStatus.Auth}
-                favoritesCount={favoritesCount}
               />
             }
           />
@@ -83,10 +78,7 @@ function App({
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <FavoritesScreen
-                  loggedHeaderData={loggedHeaderData}
-                  favoritesCount={favoritesCount}
-                />
+                <FavoritesScreen loggedHeaderData={loggedHeaderData} />
               </PrivateRoute>
             }
           />
