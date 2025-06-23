@@ -12,6 +12,9 @@ import {
   offersNearby,
 } from './mocks/mock';
 import { cities } from './const';
+import { fetchOffersAction } from './store/api-actions';
+
+store.dispatch(fetchOffersAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -7,6 +7,8 @@ import { PageType } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getUniqueCities } from '../../logic/header-cities';
 
+import cn from 'classnames';
+
 type MainScreenProps = {
   loggedHeaderData: {
     email: string;
@@ -29,6 +31,10 @@ function MainScreen({
   const cards = useAppSelector((state) => state.offerList);
   const currentCityName = useAppSelector((state) => state.currentCity);
 
+  let noneOffers = false;
+  if (cards.length === 0) {
+    noneOffers = true;
+  }
   const currentCityData = getUniqueCities(cards).filter(
     (city) => city.name === currentCityName
   )[0];
@@ -48,14 +54,20 @@ function MainScreen({
           <LocationsMenuScreen cities={cities} />
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
+          <div
+            className={cn(
+              'cities__places-container container',
+              { 'cities__places-container': !noneOffers },
+              { 'cities__places-container--empty': noneOffers }
+            )}
+          >
             <PlacesLeftScreen
               cardsData={cards}
               foundedPlacesCount={cards.length}
               onOfferHover={onOfferHover}
               pageType={pageType}
-              currentCity={currentCityData.name}
             />
+
             <PlacesRightScreen
               activeOfferId={activeOfferId}
               cardsData={cards}

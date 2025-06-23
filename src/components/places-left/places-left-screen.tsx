@@ -4,32 +4,24 @@ import PlacesFound from '../places-found/places-found';
 import { PageType } from '../../const';
 import { ContainerRatingType } from '../../const';
 import PlacesSortingScreen from '../places-sorting/places-sorting-screen';
+import { Points } from '../../types/types';
+
 type CardsDataProps = {
   foundedPlacesCount: number;
-  cardsData: {
-    id: number | string;
-    title: string;
-    type: string;
-    price: number;
-    rating: number;
-    isFavorite: boolean;
-    isPremium: boolean;
-    previewImage: string;
-  }[];
+  cardsData: Points;
   onOfferHover: (id: string | number) => void;
   pageType: PageType.Main;
-  currentCity: string;
 };
 function PlacesLeftScreen({
   cardsData,
   foundedPlacesCount,
   onOfferHover,
   pageType,
-  currentCity,
 }: CardsDataProps): JSX.Element {
   if (cardsData.length === 0) {
     return <NoPlacesLeftScreen />;
   }
+  const currentCity = cardsData[0].city.name;
 
   return (
     <section className="cities__places places">

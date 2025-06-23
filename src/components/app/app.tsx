@@ -9,6 +9,8 @@ import NotFoundScreen from '../../pages/not-found/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useState } from 'react';
 import { Points, CardComments, DetailedOffer } from '../../types/types';
+import { useAppSelector } from '../../hooks';
+import LoadingScreen from '../../pages/loading/loading-screen';
 
 type AppScreenProps = {
   loggedHeaderData: {
@@ -37,7 +39,13 @@ function App({
   );
   //prettier-ignore
   const favoritesCount = cardsData.filter((card) => card.isFavorite).length;
+  const isOffersDataLoading = useAppSelector(
+    (state) => state.isOffersDataLoading
+  );
 
+  if (isOffersDataLoading) {
+    return <LoadingScreen />;
+  }
   return (
     <HelmetProvider>
       <BrowserRouter>
