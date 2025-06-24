@@ -25,12 +25,11 @@ const LoadingScreen = ({
         left: 0,
         right: 0,
         bottom: 0,
-        pointerEvents: 'none', // Важно: позволяет взаимодействовать с элементами под спиннером
+        pointerEvents: 'none',
       }}
     >
       <div style={spinnerStyle}></div>
 
-      {/* Инлайн стили для анимации */}
       <style>
         {`
         @keyframes spin {
