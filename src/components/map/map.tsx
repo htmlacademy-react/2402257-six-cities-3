@@ -25,6 +25,7 @@ const currentCustomIcon = new Icon({
 
 function MapScreen(props: MapProps): JSX.Element {
   const { city, points, selectedPoint } = props;
+
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   useEffect(() => {
@@ -38,7 +39,7 @@ function MapScreen(props: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point.title === selectedPoint.title
+            selectedPoint !== undefined && point.id === selectedPoint.id
               ? currentCustomIcon
               : defaultCustomIcon
           )

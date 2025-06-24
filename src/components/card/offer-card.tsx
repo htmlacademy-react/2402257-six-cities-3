@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { OffersNearby } from '../../types/types';
 import RatingScreen from '../rating/rating-screen';
 import { ContainerRatingType } from '../../const';
-
+import { useAppDispatch } from '../../hooks';
 type CardProps = {
   cardData: OffersNearby;
   onOfferHover: (id: number | string) => void;
@@ -24,6 +24,7 @@ function OfferCardScreen({
     isMain = true;
   }
 
+  const dispatch = useAppDispatch();
   return (
     <article
       className={cn(
@@ -70,6 +71,12 @@ function OfferCardScreen({
                 : 'place-card__bookmark-button button'
             }
             type="button"
+            onClick={() => {
+              dispatch({
+                type: 'setIsFavorite',
+                payload: cardData.id,
+              });
+            }}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />

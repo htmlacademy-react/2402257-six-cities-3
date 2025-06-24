@@ -1,5 +1,6 @@
 import MapScreen from '../map/map';
 import { City, Points } from '../../types/types';
+import NoPlacesRightScreen from '../no-places-right/no-places-right-screen';
 
 type PlacesRightScreenProps = {
   activeOfferId: number | string | null;
@@ -12,6 +13,9 @@ function PlacesRightScreen({
   cardsData,
   city,
 }: PlacesRightScreenProps): JSX.Element {
+  if (cardsData.length === 0) {
+    return <NoPlacesRightScreen />;
+  }
   const selectedPoint = cardsData.find((card) => card.id === activeOfferId);
 
   return (

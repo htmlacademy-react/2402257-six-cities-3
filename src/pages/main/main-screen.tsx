@@ -7,6 +7,8 @@ import { PageType } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getUniqueCities } from '../../logic/header-cities';
 
+import cn from 'classnames';
+
 type MainScreenProps = {
   loggedHeaderData: {
     email: string;
@@ -15,7 +17,6 @@ type MainScreenProps = {
   activeOfferId: string | number | null;
   onOfferHover: (id: string | number) => void;
   pageType: PageType.Main;
-  favoritesCount: number;
 };
 
 function MainScreen({
@@ -24,11 +25,14 @@ function MainScreen({
   activeOfferId,
   onOfferHover,
   pageType,
-  favoritesCount,
 }: MainScreenProps): JSX.Element {
   const cards = useAppSelector((state) => state.offerList);
   const currentCityName = useAppSelector((state) => state.currentCity);
 
+  let noneOffers = false;
+  if (cards.length === 0) {
+    noneOffers = true;
+  }
   const currentCityData = getUniqueCities(cards).filter(
     (city) => city.name === currentCityName
   )[0];
@@ -38,24 +42,29 @@ function MainScreen({
       <Helmet>
         <title>Главная страница</title>
       </Helmet>
-      <HeaderScreen
-        headerData={loggedHeaderData}
-        favoritesCount={favoritesCount}
-      />
-      <main className="page__main page__main--index">
+      <HeaderScreen headerData={loggedHeaderData} />
+      <main
+        className={cn('page__main page__main--index ', {
+          'page__main--index-empty': noneOffers,
+        })}
+      >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <LocationsMenuScreen cities={cities} />
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
+          <div
+            className={cn('cities__places-container container', {
+              'cities__places-container--empty': noneOffers,
+            })}
+          >
             <PlacesLeftScreen
               cardsData={cards}
               foundedPlacesCount={cards.length}
               onOfferHover={onOfferHover}
               pageType={pageType}
-              currentCity={currentCityData.name}
             />
+
             <PlacesRightScreen
               activeOfferId={activeOfferId}
               cardsData={cards}
