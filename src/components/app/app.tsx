@@ -41,7 +41,7 @@ function App({
   );
 
   if (isOffersDataLoading) {
-    return <LoadingScreen />;
+    return <LoadingScreen size={60} color="#4481C3" />;
   }
   return (
     <HelmetProvider>
