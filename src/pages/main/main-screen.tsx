@@ -43,18 +43,20 @@ function MainScreen({
         <title>Главная страница</title>
       </Helmet>
       <HeaderScreen headerData={loggedHeaderData} />
-      <main className="page__main page__main--index">
+      <main
+        className={cn('page__main page__main--index ', {
+          'page__main--index-empty': noneOffers,
+        })}
+      >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <LocationsMenuScreen cities={cities} />
         </div>
         <div className="cities">
           <div
-            className={cn(
-              'cities__places-container container',
-              { 'cities__places-container': !noneOffers },
-              { 'cities__places-container--empty': noneOffers }
-            )}
+            className={cn('cities__places-container container', {
+              'cities__places-container--empty': noneOffers,
+            })}
           >
             <PlacesLeftScreen
               cardsData={cards}

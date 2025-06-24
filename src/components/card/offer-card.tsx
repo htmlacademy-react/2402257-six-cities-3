@@ -4,8 +4,7 @@ import cn from 'classnames';
 import { OffersNearby } from '../../types/types';
 import RatingScreen from '../rating/rating-screen';
 import { ContainerRatingType } from '../../const';
-import { store } from '../../store/store.js';
-
+import { useAppDispatch } from '../../hooks';
 type CardProps = {
   cardData: OffersNearby;
   onOfferHover: (id: number | string) => void;
@@ -25,6 +24,7 @@ function OfferCardScreen({
     isMain = true;
   }
 
+  const dispatch = useAppDispatch();
   return (
     <article
       className={cn(
@@ -72,7 +72,7 @@ function OfferCardScreen({
             }
             type="button"
             onClick={() => {
-              store.dispatch({
+              dispatch({
                 type: 'setIsFavorite',
                 payload: cardData.id,
               });
