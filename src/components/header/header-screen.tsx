@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import LogoScreen from '../logo/logo-screen';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 type HeaderScreenProps = {
   headerData: {
@@ -12,6 +13,7 @@ function HeaderScreen({ headerData }: HeaderScreenProps): JSX.Element {
     (state) => state.favoritesOffers
   ).length;
 
+  const dispatch = useAppDispatch();
   return (
     <>
       <header className="header">
@@ -38,7 +40,13 @@ function HeaderScreen({ headerData }: HeaderScreenProps): JSX.Element {
                   </Link>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <a
+                    className="header__nav-link"
+                    href="#"
+                    onClick={() => {
+                      dispatch(logoutAction());
+                    }}
+                  >
                     <span className="header__signout">Sign out</span>
                   </a>
                 </li>
