@@ -9,12 +9,14 @@ import {
   setOffersDataLoadingStatus,
   setUniqCities,
   requireAuthorization,
+  setEmail,
+  redirectToRoute,
 } from './action';
 import { Points, AuthData, UserData } from '../types/types.js';
 import { store } from '../store/store.js';
 import { getUniqCities } from '../logic/get-uniq-cities.js';
 import { saveToken, dropToken } from '../services/token.js';
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, AppRoute } from '../const';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -70,7 +72,9 @@ export const loginAction = createAsyncThunk<
       data: { token },
     } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(token);
+    dispatch(setEmail(email));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Main));
   }
 );
 
@@ -86,4 +90,5 @@ export const logoutAction = createAsyncThunk<
   await api.delete(APIRoute.Logout);
   dropToken();
   dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+  dispatch(redirectToRoute(AppRoute.Main));
 });

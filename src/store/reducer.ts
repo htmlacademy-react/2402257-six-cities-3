@@ -10,6 +10,7 @@ import {
   getFavoritesOffers,
   setIsFavorite,
   setUniqCities,
+  setEmail,
 } from './action';
 import { filterOffersByCity } from '../logic/filter-offers';
 import { AuthorizationStatus, FIRST_LOAD_CITY, SortTypes } from '../const';
@@ -18,6 +19,7 @@ import { separateFavoritesOffers } from '../logic/separate-favorites-offers';
 import { Points } from '../types/types';
 
 type InitialState = {
+  login: string | null;
   originOffers: Points;
   currentCity: string;
   offerList: Points;
@@ -29,6 +31,7 @@ type InitialState = {
   isOffersDataLoading: boolean;
 };
 const initialState: InitialState = {
+  login: null,
   originOffers: [],
   currentCity: 'Paris',
   offerList: filterOffersByCity([], FIRST_LOAD_CITY),
@@ -104,6 +107,9 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(setUniqCities, (state, action) => {
     state.citiesData = action.payload;
+  });
+  builder.addCase(setEmail, (state, action) => {
+    state.login = action.payload;
   });
 });
 

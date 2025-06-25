@@ -1,7 +1,6 @@
 import LogoScreen from '../../components/logo/logo-screen';
 import { Helmet } from 'react-helmet-async';
 import { useRef, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { changeCity } from '../../store/action';
@@ -12,7 +11,6 @@ function LoginScreen(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -23,7 +21,7 @@ function LoginScreen(): JSX.Element {
           login: loginRef.current.value,
           password: passwordRef.current.value,
         })
-      ).then(() => navigate(AppRoute.Main));
+      );
     }
   };
 
@@ -60,6 +58,7 @@ function LoginScreen(): JSX.Element {
                   placeholder="Email"
                   required
                   ref={loginRef}
+                  autoComplete="email"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -69,8 +68,11 @@ function LoginScreen(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  autoComplete="password"
                   required
                   ref={passwordRef}
+                  pattern="^(?=.*[a-zA-Z])(?=.*\d).{2,}$"
+                  minLength={2}
                 />
               </div>
               <button
@@ -84,12 +86,11 @@ function LoginScreen(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link
+                className="locations__item-link"
                 to={AppRoute.Main}
                 onClick={() => dispatch(changeCity('Amsterdam'))}
               >
-                <a className="locations__item-link" href="#">
-                  <span>Amsterdam</span>
-                </a>
+                <span>Amsterdam</span>
               </Link>
             </div>
           </section>

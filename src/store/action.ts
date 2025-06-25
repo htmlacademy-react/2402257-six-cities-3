@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { SortTypes } from '../const';
 import { Points } from '../types/types';
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, AppRoute } from '../const';
 
 export const changeCity = createAction<string>('changeCity');
 export const sortOffers = createAction<SortTypes>('sortOffers');
@@ -17,3 +17,5 @@ export const setOffersDataLoadingStatus = createAction<boolean>(
 export const getFavoritesOffers = createAction<Points>('getFavoritesOffers');
 export const setIsFavorite = createAction<string>('setIsFavorite');
 export const setUniqCities = createAction<string[]>('setUniqCities');
+export const setEmail = createAction<string>('setEmail');
+export const redirectToRoute = createAction<AppRoute>('redirectToRoute');
