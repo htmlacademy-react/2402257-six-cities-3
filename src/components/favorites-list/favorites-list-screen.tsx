@@ -4,7 +4,7 @@ import FavoritesEmptyScreen from '../favorites-empty/favorites-empty-screen';
 
 type FavoritesListScreenProps = {
   favoritesOffers: Points;
-  cities: Set<string>;
+  cities: string[];
 };
 
 function FavoritesListScreen({

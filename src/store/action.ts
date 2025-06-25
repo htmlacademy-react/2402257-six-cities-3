@@ -16,4 +16,4 @@ export const setOffersDataLoadingStatus = createAction<boolean>(
 );
 export const getFavoritesOffers = createAction<Points>('getFavoritesOffers');
 export const setIsFavorite = createAction<string>('setIsFavorite');
-export const setUniqCities = createAction<Set<string>>('setUniqCities');
+export const setUniqCities = createAction<string[]>('setUniqCities');

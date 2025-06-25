@@ -23,7 +23,7 @@ type InitialState = {
   offerList: Points;
   sorting: SortTypes;
   favoritesOffers: Points;
-  citiesData: Set<string>;
+  citiesData: string[];
   authorizationStatus: AuthorizationStatus;
   error: string | null;
   isOffersDataLoading: boolean;
@@ -34,7 +34,7 @@ const initialState: InitialState = {
   offerList: filterOffersByCity([], FIRST_LOAD_CITY),
   sorting: SortTypes.Popular,
   favoritesOffers: [],
-  citiesData: new Set(),
+  citiesData: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   isOffersDataLoading: false,

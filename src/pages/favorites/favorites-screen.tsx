@@ -22,7 +22,7 @@ function FavoritesScreen({
       <HeaderScreen headerData={loggedHeaderData} />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          {cities.size === 0 ? (
+          {cities.length === 0 ? (
             <FavoritesEmptyScreen />
           ) : (
             <FavoritesListScreen
