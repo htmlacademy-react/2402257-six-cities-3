@@ -21,7 +21,10 @@ type OfferScreenProps = {
   cardsComments: CardComments;
   offerData: DetailedOffer;
   offersNearby: Points;
-  authorizationStatus: AuthorizationStatus.Auth | AuthorizationStatus.NoAuth;
+  authorizationStatus:
+    | AuthorizationStatus.Auth
+    | AuthorizationStatus.NoAuth
+    | AuthorizationStatus.Unknown;
 };
 function OfferScreen({
   loggedHeaderData,

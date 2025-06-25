@@ -39,8 +39,14 @@ function App({
   const isOffersDataLoading = useAppSelector(
     (state) => state.isOffersDataLoading
   );
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
 
-  if (isOffersDataLoading) {
+  if (
+    authorizationStatus === AuthorizationStatus.Unknown ||
+    isOffersDataLoading
+  ) {
     return <LoadingScreen size={60} color="#4481C3" />;
   }
   return (
@@ -70,14 +76,14 @@ function App({
                 cardsComments={cardsComments}
                 offerData={offersData[3]}
                 offersNearby={offersNearby}
-                authorizationStatus={AuthorizationStatus.Auth}
+                authorizationStatus={authorizationStatus}
               />
             }
           />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute authorizationStatus={authorizationStatus}>
                 <FavoritesScreen loggedHeaderData={loggedHeaderData} />
               </PrivateRoute>
             }
