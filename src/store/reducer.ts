@@ -14,7 +14,7 @@ import {
 import { filterOffersByCity } from '../logic/filter-offers';
 import { AuthorizationStatus, FIRST_LOAD_CITY, SortTypes } from '../const';
 import { sortCurrentOffers } from '../logic/sort-offers';
-import { separateFavoritesOffers } from '../logic/get-favorites-offers';
+import { separateFavoritesOffers } from '../logic/separate-favorites-offers';
 import { Points } from '../types/types';
 
 type InitialState = {

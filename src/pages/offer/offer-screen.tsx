@@ -8,7 +8,7 @@ import RatingScreen from '../../components/rating/rating-screen';
 import { ContainerRatingType } from '../../const';
 import cn from 'classnames';
 import { PageType } from '../../const';
-import OfferCardScreen from '../../components/card/offer-card';
+import OfferCardScreen from '../../components/offer-card/offer-card';
 import MapScreen from '../../components/map/map';
 import { Points } from '../../types/types';
 import { AuthorizationStatus } from '../../const';
