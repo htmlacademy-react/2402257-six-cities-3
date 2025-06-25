@@ -91,3 +91,14 @@ export type OffersNearby = {
 
 export type Points = Point[];
 export type CardComments = CardComment[];
+
+export type AuthData = {
+  login: string;
+  password: string;
+};
+
+export type UserData = {
+  id: number;
+  email: string;
+  token: string;
+};
