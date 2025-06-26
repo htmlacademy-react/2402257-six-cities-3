@@ -10,31 +10,40 @@ import {
   getFavoritesOffers,
   setIsFavorite,
   setUniqCities,
+  setUserData,
 } from './action';
 import { filterOffersByCity } from '../logic/filter-offers';
 import { AuthorizationStatus, FIRST_LOAD_CITY, SortTypes } from '../const';
 import { sortCurrentOffers } from '../logic/sort-offers';
-import { separateFavoritesOffers } from '../logic/get-favorites-offers';
-import { Points } from '../types/types';
+import { separateFavoritesOffers } from '../logic/separate-favorites-offers';
+import { Points, UserData } from '../types/types';
 
 type InitialState = {
+  userData: UserData;
   originOffers: Points;
   currentCity: string;
   offerList: Points;
   sorting: SortTypes;
   favoritesOffers: Points;
-  citiesData: Set<string>;
+  citiesData: string[];
   authorizationStatus: AuthorizationStatus;
   error: string | null;
   isOffersDataLoading: boolean;
 };
 const initialState: InitialState = {
+  userData: {
+    email: null,
+    avatarUrl: '',
+    isPro: false,
+    name: null,
+    token: '',
+  },
   originOffers: [],
   currentCity: 'Paris',
   offerList: filterOffersByCity([], FIRST_LOAD_CITY),
   sorting: SortTypes.Popular,
   favoritesOffers: [],
-  citiesData: new Set(),
+  citiesData: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   isOffersDataLoading: false,
@@ -104,6 +113,9 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(setUniqCities, (state, action) => {
     state.citiesData = action.payload;
+  });
+  builder.addCase(setUserData, (state, action) => {
+    state.userData = action.payload;
   });
 });
 

@@ -8,10 +8,15 @@ import {
   setError,
   setOffersDataLoadingStatus,
   setUniqCities,
+  requireAuthorization,
+  redirectToRoute,
+  setUserData,
 } from './action';
-import { Points } from '../types/types.js';
+import { Points, AuthData, UserData } from '../types/types.js';
 import { store } from '../store/store.js';
 import { getUniqCities } from '../logic/get-uniq-cities.js';
+import { saveToken, dropToken } from '../services/token.js';
+import { AuthorizationStatus, AppRoute } from '../const';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -33,4 +38,59 @@ export const fetchOffersAction = createAsyncThunk<
 export const clearErrorAction = createAsyncThunk('clearError', () => {
   // почему не просто dispatch(setError(null))?
   setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
+});
+
+export const checkAuthAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
+  try {
+    const { data } = await api.get<UserData>(APIRoute.Login);
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(setUserData(data));
+  } catch {
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+  }
+});
+
+export const loginAction = createAsyncThunk<
+  void,
+  AuthData,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'user/login',
+  async ({ login: email, password }, { dispatch, extra: api }) => {
+    const { data } = await api.post<UserData>(APIRoute.Login, {
+      email,
+      password,
+    });
+    saveToken(data.token);
+    dispatch(setUserData(data));
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Main));
+  }
+);
+
+export const logoutAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/logout', async (_arg, { dispatch, extra: api }) => {
+  await api.delete(APIRoute.Logout);
+  dropToken();
+  dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+  dispatch(redirectToRoute(AppRoute.Main));
 });

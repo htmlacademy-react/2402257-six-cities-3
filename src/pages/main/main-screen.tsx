@@ -10,9 +10,6 @@ import { getUniqueCities } from '../../logic/header-cities';
 import cn from 'classnames';
 
 type MainScreenProps = {
-  loggedHeaderData: {
-    email: string;
-  };
   cities: { name: string; key: number }[];
   activeOfferId: string | number | null;
   onOfferHover: (id: string | number) => void;
@@ -20,7 +17,6 @@ type MainScreenProps = {
 };
 
 function MainScreen({
-  loggedHeaderData,
   cities,
   activeOfferId,
   onOfferHover,
@@ -42,7 +38,7 @@ function MainScreen({
       <Helmet>
         <title>Главная страница</title>
       </Helmet>
-      <HeaderScreen headerData={loggedHeaderData} />
+      <HeaderScreen />
       <main
         className={cn('page__main page__main--index ', {
           'page__main--index-empty': noneOffers,

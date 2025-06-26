@@ -1,4 +1,4 @@
-import OfferCardScreen from '../card/offer-card';
+import OfferCardScreen from '../offer-card/offer-card';
 import NoPlacesLeftScreen from '../no-places-left/no-places-left-screen';
 import PlacesFound from '../places-found/places-found';
 import { PageType } from '../../const';

@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, PageType } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main/main-screen';
@@ -11,11 +11,9 @@ import { useState } from 'react';
 import { Points, CardComments, DetailedOffer } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading/loading-screen';
-
+import HistoryRouter from '../history-router/history-route';
+import browserHistory from '../../browser-history';
 type AppScreenProps = {
-  loggedHeaderData: {
-    email: string;
-  };
   cities: {
     name: string;
     key: number;
@@ -26,7 +24,6 @@ type AppScreenProps = {
 };
 
 function App({
-  loggedHeaderData,
   cardsComments,
   cities,
   offersData,
@@ -39,19 +36,24 @@ function App({
   const isOffersDataLoading = useAppSelector(
     (state) => state.isOffersDataLoading
   );
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
 
-  if (isOffersDataLoading) {
+  if (
+    authorizationStatus === AuthorizationStatus.Unknown ||
+    isOffersDataLoading
+  ) {
     return <LoadingScreen size={60} color="#4481C3" />;
   }
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Main}
             element={
               <MainScreen
-                loggedHeaderData={loggedHeaderData}
                 cities={cities}
                 activeOfferId={activeOfferId}
                 onOfferHover={(id: string | number) => {
@@ -66,25 +68,24 @@ function App({
             path={AppRoute.Offer}
             element={
               <OfferScreen
-                loggedHeaderData={loggedHeaderData}
                 cardsComments={cardsComments}
                 offerData={offersData[3]}
                 offersNearby={offersNearby}
-                authorizationStatus={AuthorizationStatus.Auth}
+                authorizationStatus={authorizationStatus}
               />
             }
           />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <FavoritesScreen loggedHeaderData={loggedHeaderData} />
+              <PrivateRoute authorizationStatus={authorizationStatus}>
+                <FavoritesScreen />
               </PrivateRoute>
             }
           />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

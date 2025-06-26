@@ -1,7 +1,30 @@
 import LogoScreen from '../../components/logo/logo-screen';
 import { Helmet } from 'react-helmet-async';
-
+import { useRef, FormEvent } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
+import { changeCity } from '../../store/action';
+import { AppRoute } from '../../const';
+import { Link } from 'react-router-dom';
 function LoginScreen(): JSX.Element {
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      dispatch(
+        loginAction({
+          login: loginRef.current.value,
+          password: passwordRef.current.value,
+        })
+      );
+    }
+  };
+
   return (
     <div className="page page--gray page--login">
       <Helmet>
@@ -20,7 +43,12 @@ function LoginScreen(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form
+              className="login__form form"
+              action="#"
+              method="post"
+              onSubmit={handleSubmit}
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -29,6 +57,8 @@ function LoginScreen(): JSX.Element {
                   name="email"
                   placeholder="Email"
                   required
+                  ref={loginRef}
+                  autoComplete="email"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -38,7 +68,11 @@ function LoginScreen(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  autoComplete="password"
                   required
+                  ref={passwordRef}
+                  pattern="^(?=.*[a-zA-Z])(?=.*\d).{2,}$"
+                  minLength={2}
                 />
               </div>
               <button
@@ -51,9 +85,13 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Main}
+                onClick={() => dispatch(changeCity('Amsterdam'))}
+              >
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

@@ -8,23 +8,22 @@ import RatingScreen from '../../components/rating/rating-screen';
 import { ContainerRatingType } from '../../const';
 import cn from 'classnames';
 import { PageType } from '../../const';
-import OfferCardScreen from '../../components/card/offer-card';
+import OfferCardScreen from '../../components/offer-card/offer-card';
 import MapScreen from '../../components/map/map';
 import { Points } from '../../types/types';
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 
 type OfferScreenProps = {
-  loggedHeaderData: {
-    email: string;
-  };
   cardsComments: CardComments;
   offerData: DetailedOffer;
   offersNearby: Points;
-  authorizationStatus: AuthorizationStatus.Auth | AuthorizationStatus.NoAuth;
+  authorizationStatus:
+    | AuthorizationStatus.Auth
+    | AuthorizationStatus.NoAuth
+    | AuthorizationStatus.Unknown;
 };
 function OfferScreen({
-  loggedHeaderData,
   cardsComments,
   offerData,
   offersNearby,
@@ -44,7 +43,7 @@ function OfferScreen({
       <Helmet>
         <title>Персонализированное предложения</title>
       </Helmet>
-      <HeaderScreen headerData={loggedHeaderData} />
+      <HeaderScreen />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
