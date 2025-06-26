@@ -98,7 +98,9 @@ export type AuthData = {
 };
 
 export type UserData = {
-  id: number;
-  email: string;
+  email: null | string;
+  avatarUrl: string;
+  isPro: boolean;
+  name: null | string;
   token: string;
 };

@@ -7,7 +7,7 @@ function HeaderScreen(): JSX.Element {
   const favoritesCount = useAppSelector(
     (state) => state.favoritesOffers
   ).length;
-  const userLogin = useAppSelector((state) => state.login);
+  const userData = useAppSelector((state) => state.userData);
   const isAuth =
     useAppSelector((state) => state.authorizationStatus) ===
     AuthorizationStatus.Auth;
@@ -44,9 +44,11 @@ function HeaderScreen(): JSX.Element {
                         className="header__nav-link header__nav-link--profile"
                         to="/favorites"
                       >
-                        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                          <img src={userData.avatarUrl}></img>
+                        </div>
                         <span className="header__user-name user__name">
-                          {userLogin}
+                          {userData.email}
                         </span>
                         <span className="header__favorite-count">
                           {favoritesCount}
