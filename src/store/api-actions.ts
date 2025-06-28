@@ -11,12 +11,20 @@ import {
   requireAuthorization,
   redirectToRoute,
   setUserData,
+  setDetailedOffer,
 } from './action';
-import { Points, AuthData, UserData } from '../types/types.js';
+import {
+  Points,
+  AuthData,
+  UserData,
+  DetailedOffer,
+  CardComments,
+} from '../types/types.js';
 import { store } from '../store/store.js';
 import { getUniqCities } from '../logic/get-uniq-cities.js';
 import { saveToken, dropToken } from '../services/token.js';
 import { AuthorizationStatus, AppRoute } from '../const';
+import { getToken } from '../services/token.js';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -35,6 +43,27 @@ export const fetchOffersAction = createAsyncThunk<
   dispatch(loadOffers(data));
 });
 
+export const fetchDetailedOffersDataAction = createAsyncThunk<
+  void,
+  string | undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('fetchOfferData', async (id, { dispatch, extra: api }) => {
+  const { data: detailedOffer } = await api.get<DetailedOffer>(
+    `${APIRoute.Offers}/${id}`
+  );
+  const { data: nearbyOffers } = await api.get<Points>(
+    `${APIRoute.Offers}/${id}/nearby`
+  );
+  const { data: comments } = await api.get<CardComments>(
+    `${APIRoute.Comments}/${id}`
+  );
+  dispatch(setDetailedOffer({ detailedOffer, nearbyOffers, comments }));
+});
+
 export const clearErrorAction = createAsyncThunk('clearError', () => {
   // почему не просто dispatch(setError(null))?
   setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
@@ -50,6 +79,11 @@ export const checkAuthAction = createAsyncThunk<
   }
 >('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
   try {
+    const token = getToken();
+    if (!token) {
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      return;
+    }
     const { data } = await api.get<UserData>(APIRoute.Login);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(setUserData(data));

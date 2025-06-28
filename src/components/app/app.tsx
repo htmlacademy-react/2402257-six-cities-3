@@ -8,7 +8,6 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import NotFoundScreen from '../../pages/not-found/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useState } from 'react';
-import { Points, CardComments, DetailedOffer } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading/loading-screen';
 import HistoryRouter from '../history-router/history-route';
@@ -18,17 +17,9 @@ type AppScreenProps = {
     name: string;
     key: number;
   }[];
-  cardsComments: CardComments;
-  offersData: DetailedOffer[];
-  offersNearby: Points;
 };
 
-function App({
-  cardsComments,
-  cities,
-  offersData,
-  offersNearby,
-}: AppScreenProps): JSX.Element {
+function App({ cities }: AppScreenProps): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | number | null>(
     null
   );
@@ -66,14 +57,7 @@ function App({
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route
             path={AppRoute.Offer}
-            element={
-              <OfferScreen
-                cardsComments={cardsComments}
-                offerData={offersData[3]}
-                offersNearby={offersNearby}
-                authorizationStatus={authorizationStatus}
-              />
-            }
+            element={<OfferScreen authorizationStatus={authorizationStatus} />}
           />
           <Route
             path={AppRoute.Favorites}
