@@ -14,8 +14,10 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <Provider store={store}>
-    <ErrorMessage />
-    <App cities={cities} />
-  </Provider>
+  <React.StrictMode>
+    <Provider store={store}>
+      <ErrorMessage />
+      <App cities={cities} />
+    </Provider>
+  </React.StrictMode>
 );
