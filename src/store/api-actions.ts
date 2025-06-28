@@ -12,6 +12,8 @@ import {
   redirectToRoute,
   setUserData,
   setDetailedOffer,
+  addNewComment,
+  setIsCommentPosted,
 } from './action';
 import {
   Points,
@@ -128,3 +130,21 @@ export const logoutAction = createAsyncThunk<
   dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   dispatch(redirectToRoute(AppRoute.Main));
 });
+
+export const postCommentAction = createAsyncThunk<
+  void,
+  { id: string; comment: string; rating: number },
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'comments/post',
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    dispatch(setIsCommentPosted(false));
+    await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
+    dispatch(setIsCommentPosted(true));
+    dispatch(addNewComment({ id, comment, rating }));
+  }
+);

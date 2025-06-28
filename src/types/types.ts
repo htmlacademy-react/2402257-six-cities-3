@@ -102,7 +102,7 @@ export type UserData = {
   email: null | string;
   avatarUrl: string;
   isPro: boolean;
-  name: null | string;
+  name: string;
   token: string;
 };
 

@@ -93,7 +93,7 @@ function OfferCardScreen({
         <h2 className="place-card__name">
           <Link
             className="header__logo-link header__logo-link--active"
-            to={`offer/${cardData.id}`}
+            to={`../offer/${cardData.id}`}
           >
             {cardData.title}
           </Link>

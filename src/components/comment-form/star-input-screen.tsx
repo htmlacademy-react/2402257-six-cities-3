@@ -1,17 +1,16 @@
+import { useAppDispatch } from '../../hooks';
+import { setRating } from '../../store/action';
+
 type StarInputProps = {
   settings: {
     title: string;
     rate: number;
   };
-  setterFn: (commentData: { rate: number; comment: string }) => void;
-  commentCurrentData: { rate: number; comment: string };
 };
 
-function StarInputScreen({
-  settings,
-  setterFn,
-  commentCurrentData,
-}: StarInputProps): JSX.Element {
+function StarInputScreen({ settings }: StarInputProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   return (
     <>
       <input
@@ -21,7 +20,7 @@ function StarInputScreen({
         id={`${settings.rate}-stars`}
         type="radio"
         onChange={() => {
-          setterFn({ ...commentCurrentData, rate: settings.rate });
+          dispatch(setRating(settings.rate));
         }}
       />
       <label
