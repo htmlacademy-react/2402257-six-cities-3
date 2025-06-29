@@ -76,6 +76,7 @@ export type DetailedOffer = {
   host: Host;
   images: string[];
   maxAdults: number;
+  pointsNearby: Points;
 };
 
 export type OffersNearby = {
@@ -101,6 +102,12 @@ export type UserData = {
   email: null | string;
   avatarUrl: string;
   isPro: boolean;
-  name: null | string;
+  name: string;
   token: string;
+};
+
+export type DetailedOfferData = {
+  detailedOffer: DetailedOffer;
+  nearbyOffers: Points;
+  comments: CardComments;
 };

@@ -2,7 +2,7 @@ import HeaderScreen from '../../components/header/header-screen';
 import { Helmet } from 'react-helmet-async';
 import ReviewItemScreen from '../../components/review-item/review-item-screen';
 import CommentFormScreen from '../../components/comment-form/comment-form-screen';
-import { CardComments, DetailedOffer } from '../../types/types';
+import { DetailedOfferData } from '../../types/types';
 import OfferImgScreen from '../../components/offer-img/offer-img-screen';
 import RatingScreen from '../../components/rating/rating-screen';
 import { ContainerRatingType } from '../../const';
@@ -10,33 +10,53 @@ import cn from 'classnames';
 import { PageType } from '../../const';
 import OfferCardScreen from '../../components/offer-card/offer-card';
 import MapScreen from '../../components/map/map';
-import { Points } from '../../types/types';
 import { AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchDetailedOffersDataAction } from '../../store/api-actions';
+import { useParams } from 'react-router-dom';
+import LoadingScreen from '../loading/loading-screen';
+import { clearDetailedOfferData } from '../../store/action';
+import { Points } from '../../types/types';
 
 type OfferScreenProps = {
-  cardsComments: CardComments;
-  offerData: DetailedOffer;
-  offersNearby: Points;
   authorizationStatus:
     | AuthorizationStatus.Auth
     | AuthorizationStatus.NoAuth
     | AuthorizationStatus.Unknown;
 };
-function OfferScreen({
-  cardsComments,
-  offerData,
-  offersNearby,
-  authorizationStatus,
-}: OfferScreenProps): JSX.Element {
-  const cards = useAppSelector((state) => state.offerList);
+function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const allOffers = useAppSelector((state) => state.originOffers);
+  const offerDetailedData = useAppSelector((state) => state.detailedOfferData);
+  useEffect(() => {
+    dispatch(fetchDetailedOffersDataAction(id));
+
+    return () => {
+      dispatch(clearDetailedOfferData());
+    };
+  }, [dispatch, id]);
+
+  if (offerDetailedData === null) {
+    return <LoadingScreen size={60} color="#4481C3" />;
+  }
+
+  const { detailedOffer, nearbyOffers, comments }: DetailedOfferData =
+    offerDetailedData;
 
   const bedrooms =
-    offerData.bedrooms > 1 ? `${offerData.bedrooms} Bedrooms` : '1 Bedroom';
+    detailedOffer.bedrooms > 1
+      ? `${detailedOffer.bedrooms} Bedrooms`
+      : '1 Bedroom';
   const guests =
-    offerData.maxAdults > 1
-      ? `Max ${offerData.maxAdults} Adults`
+    detailedOffer.maxAdults > 1
+      ? `Max ${detailedOffer.maxAdults} Adults`
       : 'Max 1 Adult';
+
+  const offersOnMap: Points = nearbyOffers
+    .slice(0, 3)
+    .concat(allOffers.find((offer) => offer.id === id) ?? []);
 
   return (
     <div className="page">
@@ -48,20 +68,20 @@ function OfferScreen({
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offerData.images.map((image) => (
+              {detailedOffer.images.map((image) => (
                 <OfferImgScreen src={image} key={image} />
               ))}
             </div>
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {offerData.isPremium && (
+              {detailedOffer.isPremium && (
                 <div className="offer__mark">
                   <span>Premium</span>
                 </div>
               )}
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">{offerData.title}</h1>
+                <h1 className="offer__name">{detailedOffer.title}</h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
@@ -71,17 +91,17 @@ function OfferScreen({
               </div>
               <div className="offer__rating rating">
                 <RatingScreen
-                  rating={offerData.rating}
+                  rating={detailedOffer.rating}
                   containerType={ContainerRatingType.Offer}
                 />
                 <span className="offer__rating-value rating__value">
-                  {offerData.rating}
+                  {detailedOffer.rating}
                 </span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {offerData.type.slice(0, 1).toUpperCase() +
-                    offerData.type.slice(1)}
+                  {detailedOffer.type.slice(0, 1).toUpperCase() +
+                    detailedOffer.type.slice(1)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {bedrooms}
@@ -91,13 +111,13 @@ function OfferScreen({
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">€{offerData.price}</b>
+                <b className="offer__price-value">€{detailedOffer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {offerData.goods.map((good) => (
+                  {detailedOffer.goods.map((good) => (
                     <li className="offer__inside-item" key={good}>
                       {good}
                     </li>
@@ -110,22 +130,22 @@ function OfferScreen({
                   <div
                     className={cn(
                       'offer__avatar-wrapper user__avatar-wrapper',
-                      { 'offer__avatar-wrapper--pro': offerData.host.isPro }
+                      { 'offer__avatar-wrapper--pro': detailedOffer.host.isPro }
                     )}
                   >
                     <img
                       className="offer__avatar user__avatar"
-                      src={offerData.host.avatarUrl}
+                      src={detailedOffer.host.avatarUrl}
                       width={74}
                       height={74}
                       alt="Host avatar"
                     />
                   </div>
                   <span className="offer__user-name">
-                    {offerData.host.name}
+                    {detailedOffer.host.name}
                   </span>
                   {}
-                  {offerData.host.isPro && (
+                  {detailedOffer.host.isPro && (
                     <span className="offer__user-status">Pro</span>
                   )}
                 </div>
@@ -135,18 +155,16 @@ function OfferScreen({
                     the unique lightness of Amsterdam. The building is green and
                     from 18th century.
                   </p> */}
-                  <p className="offer__text">{offerData.description}</p>
+                  <p className="offer__text">{detailedOffer.description}</p>
                 </div>
               </div>
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews ·{' '}
-                  <span className="reviews__amount">
-                    {cardsComments.length}
-                  </span>
+                  <span className="reviews__amount">{comments.length}</span>
                 </h2>
                 <ul className="reviews__list">
-                  {cardsComments.map((comment) => (
+                  {comments.map((comment) => (
                     <ReviewItemScreen key={comment.id} commentData={comment} />
                   ))}
                 </ul>
@@ -157,9 +175,9 @@ function OfferScreen({
             </div>
           </div>
           <MapScreen
-            city={offerData.city}
-            points={offersNearby}
-            selectedPoint={cards.find((card) => card.id === offerData.id)}
+            city={detailedOffer.city}
+            points={offersOnMap}
+            selectedPoint={allOffers.find((offer) => offer.id === id)}
           />
         </section>
         <div className="container">
@@ -168,7 +186,7 @@ function OfferScreen({
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              {offersNearby.map((card) => (
+              {nearbyOffers.slice(0, 3).map((card) => (
                 <OfferCardScreen
                   key={card.id}
                   cardData={card}
