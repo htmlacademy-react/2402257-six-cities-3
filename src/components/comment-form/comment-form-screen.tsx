@@ -36,6 +36,7 @@ function CommentFormScreen(): JSX.Element {
   const isCommentPosted = useAppSelector((state) => state.isCommentPosted);
   const isReadyToSubmit =
     currentRating !== 0 &&
+    isCommentPosted &&
     currentComment.length >= 50 &&
     currentComment.length <= 300;
   const { id } = useParams();
@@ -84,12 +85,13 @@ function CommentFormScreen(): JSX.Element {
               );
               commentInputRef.current!.value = '';
               dispatch(setRating(0));
+              dispatch(setComment(''));
             }}
           >
             Submit
           </button>
         )}
-        {!isReadyToSubmit && isCommentPosted && (
+        {!isReadyToSubmit && (
           <button
             className="reviews__submit form__submit button"
             type="submit"
