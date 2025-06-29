@@ -23,6 +23,7 @@ import { AuthorizationStatus, FIRST_LOAD_CITY, SortTypes } from '../const';
 import { sortCurrentOffers } from '../logic/sort-offers';
 import { separateFavoritesOffers } from '../logic/separate-favorites-offers';
 import { Points, UserData, DetailedOfferData } from '../types/types';
+import { nanoid } from 'nanoid';
 
 type InitialState = {
   detailedOfferData: DetailedOfferData | null;
@@ -151,7 +152,7 @@ const reducer = createReducer(initialState, (builder) => {
         {
           comment: action.payload.comment,
           date: new Date().toISOString(),
-          id: '',
+          id: nanoid(),
           rating: action.payload.rating,
           user: {
             avatarUrl: state.userData.avatarUrl,

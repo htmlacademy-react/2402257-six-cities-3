@@ -83,7 +83,7 @@ function CommentFormScreen(): JSX.Element {
                 })
               );
               commentInputRef.current!.value = '';
-              dispatch(setRating(5));
+              dispatch(setRating(0));
             }}
           >
             Submit
