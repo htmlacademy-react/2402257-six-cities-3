@@ -6,9 +6,15 @@ type StarInputProps = {
     title: string;
     rate: number;
   };
+  isReadyToSubmit: boolean;
+  isCommentPosted: boolean;
 };
 
-function StarInputScreen({ settings }: StarInputProps): JSX.Element {
+function StarInputScreen({
+  settings,
+  isReadyToSubmit,
+  isCommentPosted,
+}: StarInputProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
@@ -22,6 +28,7 @@ function StarInputScreen({ settings }: StarInputProps): JSX.Element {
         onChange={() => {
           dispatch(setRating(settings.rate));
         }}
+        disabled={!isReadyToSubmit && !isCommentPosted}
       />
       <label
         htmlFor={`${settings.rate}-stars`}

@@ -48,7 +48,12 @@ function CommentFormScreen(): JSX.Element {
       </label>
       <div className="reviews__rating-form form__rating">
         {starsSettings.map((star) => (
-          <StarInputScreen key={star.rate} settings={star} />
+          <StarInputScreen
+            key={star.rate}
+            settings={star}
+            isReadyToSubmit={isReadyToSubmit}
+            isCommentPosted={isCommentPosted}
+          />
         ))}
       </div>
       <textarea
@@ -63,6 +68,7 @@ function CommentFormScreen(): JSX.Element {
         ref={commentInputRef}
         minLength={50}
         maxLength={300}
+        disabled={!isReadyToSubmit && !isCommentPosted}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

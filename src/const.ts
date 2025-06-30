@@ -12,6 +12,7 @@ enum AppRoute {
   Offer = '/offer/:id',
   Login = '/login',
   Favorites = '/favorites',
+  NotFound = '*',
 }
 
 enum SortTypes {
