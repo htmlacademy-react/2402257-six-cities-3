@@ -5,7 +5,6 @@ import {
   sortOffers,
   loadOffers,
   requireAuthorization,
-  setError,
   setOffersDataLoadingStatus,
   getFavoritesOffers,
   setIsFavorite,
@@ -35,7 +34,6 @@ type InitialState = {
   favoritesOffers: Points;
   citiesData: string[];
   authorizationStatus: AuthorizationStatus;
-  error: string | null;
   isOffersDataLoading: boolean;
   isLoadingDetailedOffer: boolean;
   isCommentPosted: boolean;
@@ -60,7 +58,6 @@ const initialState: InitialState = {
   favoritesOffers: [],
   citiesData: [],
   authorizationStatus: AuthorizationStatus.Unknown,
-  error: null,
   isOffersDataLoading: false,
   isLoadingDetailedOffer: false,
   isCommentPosted: true,
@@ -95,9 +92,6 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(requireAuthorization, (state, action) => {
     state.authorizationStatus = action.payload;
-  });
-  builder.addCase(setError, (state, action) => {
-    state.error = action.payload;
   });
   builder.addCase(setOffersDataLoadingStatus, (state, action) => {
     state.isOffersDataLoading = action.payload;

@@ -52,8 +52,6 @@ const URL_MARKER_DEFAULT = '../img/pin.svg';
 
 const URL_MARKER_CURRENT = '../img/pin-active.svg';
 
-const TIMEOUT_SHOW_ERROR = 2000;
-
 export {
   cities,
   AppRoute,
@@ -65,5 +63,4 @@ export {
   SortTypes,
   FIRST_LOAD_CITY,
   APIRoute,
-  TIMEOUT_SHOW_ERROR,
 };

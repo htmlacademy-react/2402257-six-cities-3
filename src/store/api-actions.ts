@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { AxiosInstance } from 'axios';
-import { APIRoute, TIMEOUT_SHOW_ERROR } from '../const';
+import { APIRoute } from '../const';
 import {
   getFavoritesOffers,
   loadOffers,
-  setError,
   setOffersDataLoadingStatus,
   setUniqCities,
   requireAuthorization,
@@ -22,7 +21,6 @@ import {
   DetailedOffer,
   CardComments,
 } from '../types/types.js';
-import { store } from '../store/store.js';
 import { getUniqCities } from '../logic/get-uniq-cities.js';
 import { saveToken, dropToken } from '../services/token.js';
 import { AuthorizationStatus, AppRoute } from '../const';
@@ -67,11 +65,6 @@ export const fetchDetailedOffersDataAction = createAsyncThunk<
     `${APIRoute.Comments}/${id}`
   );
   dispatch(setDetailedOffer({ detailedOffer, nearbyOffers, comments }));
-});
-
-export const clearErrorAction = createAsyncThunk('clearError', () => {
-  // почему не просто dispatch(setError(null))?
-  setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
 });
 
 export const checkAuthAction = createAsyncThunk<
