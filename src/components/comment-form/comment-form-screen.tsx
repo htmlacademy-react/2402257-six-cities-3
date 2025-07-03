@@ -1,5 +1,9 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import StarInputScreen from './star-input-screen';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setComment, setRating } from '../../store/action';
+import { postCommentAction } from '../../store/api-actions';
+import { useParams } from 'react-router-dom';
 
 const starsSettings = [
   {
@@ -24,14 +28,26 @@ const starsSettings = [
   },
 ];
 
-function CommentFormScreen(): JSX.Element {
-  const [commentData, setCommentData] = useState<{
-    rate: number;
-    comment: string;
-  }>({
-    rate: 5,
-    comment: '',
+const resetStarsCheckedStatus = () => {
+  const starsRating = document.querySelectorAll('.form__rating-input');
+  starsRating.forEach((star) => {
+    const element = star as HTMLInputElement;
+    element.checked = false;
   });
+};
+
+function CommentFormScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const commentInputRef = useRef<HTMLTextAreaElement>(null);
+  const currentRating = useAppSelector((state) => state.comment.rating);
+  const currentComment = useAppSelector((state) => state.comment.commentText);
+  const isCommentPosted = useAppSelector((state) => state.isCommentPosted);
+  const isReadyToSubmit =
+    currentRating !== 0 &&
+    isCommentPosted &&
+    currentComment.length >= 50 &&
+    currentComment.length <= 300;
+  const { id } = useParams();
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -43,8 +59,8 @@ function CommentFormScreen(): JSX.Element {
           <StarInputScreen
             key={star.rate}
             settings={star}
-            setterFn={setCommentData}
-            commentCurrentData={commentData}
+            isReadyToSubmit={isReadyToSubmit}
+            isCommentPosted={isCommentPosted}
           />
         ))}
       </div>
@@ -54,12 +70,13 @@ function CommentFormScreen(): JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         defaultValue={''}
-        onChange={(evt) => {
-          setCommentData({
-            ...commentData,
-            comment: evt.target.value,
-          });
+        onChange={() => {
+          dispatch(setComment(commentInputRef.current!.value));
         }}
+        ref={commentInputRef}
+        minLength={50}
+        maxLength={300}
+        disabled={!isReadyToSubmit && !isCommentPosted}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -67,13 +84,37 @@ function CommentFormScreen(): JSX.Element {
           <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button
-          className="reviews__submit form__submit button"
-          type="submit"
-          disabled
-        >
-          Submit
-        </button>
+        {isReadyToSubmit && isCommentPosted && (
+          <button
+            className="reviews__submit form__submit button"
+            type="submit"
+            onClick={(evt) => {
+              evt.preventDefault();
+              dispatch(
+                postCommentAction({
+                  id: id ?? '',
+                  comment: commentInputRef.current!.value,
+                  rating: currentRating,
+                })
+              );
+              commentInputRef.current!.value = '';
+              dispatch(setRating(0));
+              dispatch(setComment(''));
+              resetStarsCheckedStatus();
+            }}
+          >
+            Submit
+          </button>
+        )}
+        {!isReadyToSubmit && (
+          <button
+            className="reviews__submit form__submit button"
+            type="submit"
+            disabled
+          >
+            Submit
+          </button>
+        )}
       </div>
     </form>
   );
