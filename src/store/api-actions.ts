@@ -52,19 +52,20 @@ export const fetchDetailedOffersDataAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('fetchOfferData', async (id, { dispatch, extra: api }) => {
-  const { data: detailedOffer } = await api
-    .get<DetailedOffer>(`${APIRoute.Offers}/${id}`)
-    .catch(() => {
-      dispatch(redirectToRoute(AppRoute.NotFound));
-      throw new Error();
-    });
-  const { data: nearbyOffers } = await api.get<Points>(
-    `${APIRoute.Offers}/${id}/nearby`
-  );
-  const { data: comments } = await api.get<CardComments>(
-    `${APIRoute.Comments}/${id}`
-  );
-  dispatch(setDetailedOffer({ detailedOffer, nearbyOffers, comments }));
+  try {
+    const { data: detailedOffer } = await api.get<DetailedOffer>(
+      `${APIRoute.Offers}/${id}`
+    );
+    const { data: nearbyOffers } = await api.get<Points>(
+      `${APIRoute.Offers}/${id}/nearby`
+    );
+    const { data: comments } = await api.get<CardComments>(
+      `${APIRoute.Comments}/${id}`
+    );
+    dispatch(setDetailedOffer({ detailedOffer, nearbyOffers, comments }));
+  } catch {
+    dispatch(redirectToRoute(AppRoute.NotFound));
+  }
 });
 
 export const checkAuthAction = createAsyncThunk<

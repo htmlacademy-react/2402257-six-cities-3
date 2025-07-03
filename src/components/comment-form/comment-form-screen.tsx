@@ -28,6 +28,14 @@ const starsSettings = [
   },
 ];
 
+const resetStarsCheckedStatus = () => {
+  const starsRating = document.querySelectorAll('.form__rating-input');
+  starsRating.forEach((star) => {
+    const element = star as HTMLInputElement;
+    element.checked = false;
+  });
+};
+
 function CommentFormScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
@@ -92,6 +100,7 @@ function CommentFormScreen(): JSX.Element {
               commentInputRef.current!.value = '';
               dispatch(setRating(0));
               dispatch(setComment(''));
+              resetStarsCheckedStatus();
             }}
           >
             Submit
