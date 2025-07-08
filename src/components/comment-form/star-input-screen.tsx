@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../hooks';
-import { setRating } from '../../store/action';
+import { setRating } from '../../store/form-process.ts/form-process';
 
 type StarInputProps = {
   settings: {

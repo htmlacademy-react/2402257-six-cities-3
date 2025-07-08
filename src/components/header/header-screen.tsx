@@ -3,14 +3,16 @@ import LogoScreen from '../logo/logo-screen';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../const';
+import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import {
+  getAuthorizationStatus,
+  getUserData,
+} from '../../store/user-process/selectors';
 function HeaderScreen(): JSX.Element {
-  const favoritesCount = useAppSelector(
-    (state) => state.favoritesOffers
-  ).length;
-  const userData = useAppSelector((state) => state.userData);
+  const favoritesCount = useAppSelector(getFavoriteOffers).length;
+  const userData = useAppSelector(getUserData);
   const isAuth =
-    useAppSelector((state) => state.authorizationStatus) ===
-    AuthorizationStatus.Auth;
+    useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
