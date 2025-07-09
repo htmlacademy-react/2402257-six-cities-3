@@ -6,8 +6,12 @@ import { Helmet } from 'react-helmet-async';
 import { PageType } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getUniqueCities } from '../../logic/header-cities';
-
+import { filterOffersByCity } from '../../logic/filter-offers';
 import cn from 'classnames';
+import { getOriginOffers } from '../../store/offers-data/selectors';
+import { getCurrentCity } from '../../store/cities-process/selectors';
+import { sortCurrentOffers } from '../../logic/sort-offers';
+import { getSorting } from '../../store/sorting-process/selectors';
 
 type MainScreenProps = {
   cities: { name: string; key: number }[];
@@ -22,8 +26,13 @@ function MainScreen({
   onOfferHover,
   pageType,
 }: MainScreenProps): JSX.Element {
-  const cards = useAppSelector((state) => state.offerList);
-  const currentCityName = useAppSelector((state) => state.currentCity);
+  const originCards = useAppSelector(getOriginOffers);
+  const currentCityName = useAppSelector(getCurrentCity);
+  const currentSortType = useAppSelector(getSorting);
+  const cards = sortCurrentOffers(
+    filterOffersByCity(originCards, currentCityName),
+    currentSortType
+  );
 
   let noneOffers = false;
   if (cards.length === 0) {

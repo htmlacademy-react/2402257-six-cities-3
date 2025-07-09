@@ -39,6 +39,16 @@ enum PageType {
   Offer = 'offer',
 }
 
+export enum NameSpace {
+  Sort = 'SORT',
+  User = 'USER',
+  DetailedOffer = 'DETAILEDOFFER',
+  Favorites = 'FAVORITES',
+  Data = 'DATA',
+  Cities = 'CITIES',
+  Form = 'FORM',
+}
+
 enum APIRoute {
   Offers = '/offers',
   Login = '/login',

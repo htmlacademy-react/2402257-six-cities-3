@@ -2,16 +2,17 @@ import { SortTypes } from '../../const';
 import cn from 'classnames';
 import { Fragment, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-
+import { getSorting } from '../../store/sorting-process/selectors';
+import { changeSortingType } from '../../store/sorting-process/sorting-process';
 function PlacesSortingScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const activeSortingType = useAppSelector((state) => state.sorting);
+  const activeSortingType = useAppSelector(getSorting);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const handleSortingChange = (type: SortTypes) => {
     dispatch({ type: 'sortOffers', payload: type });
-    dispatch({ type: 'changeSortingType', payload: type });
+    dispatch(changeSortingType(type));
   };
 
   return (

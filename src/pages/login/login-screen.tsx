@@ -3,9 +3,12 @@ import { Helmet } from 'react-helmet-async';
 import { useRef, FormEvent } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/cities-process/cities-process';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
+import { changeSortingType } from '../../store/sorting-process/sorting-process';
+import { SortTypes } from '../../const';
+
 function LoginScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -88,7 +91,10 @@ function LoginScreen(): JSX.Element {
               <Link
                 className="locations__item-link"
                 to={AppRoute.Main}
-                onClick={() => dispatch(changeCity('Amsterdam'))}
+                onClick={() => {
+                  dispatch(changeCity('Amsterdam'));
+                  dispatch(changeSortingType(SortTypes.Popular));
+                }}
               >
                 <span>Amsterdam</span>
               </Link>

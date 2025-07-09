@@ -1,7 +1,8 @@
 import { useAppSelector } from '../../hooks';
+import { getCurrentCity } from '../../store/cities-process/selectors';
 
 function NoPlacesLeftScreen(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.currentCity);
+  const currentCity = useAppSelector(getCurrentCity);
   return (
     <section className="cities__no-places">
       <div className="cities__status-wrapper tabs__content">

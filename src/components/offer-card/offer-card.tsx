@@ -5,6 +5,10 @@ import { OffersNearby } from '../../types/types';
 import RatingScreen from '../rating/rating-screen';
 import { ContainerRatingType } from '../../const';
 import { useAppDispatch } from '../../hooks';
+import { addFavoriteOffer } from '../../store/favorite-process/favorite-process';
+import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import { useAppSelector } from '../../hooks';
+
 type CardProps = {
   cardData: OffersNearby;
   onOfferHover: (id: number | string) => void;
@@ -19,12 +23,15 @@ function OfferCardScreen({
   containerType,
 }: CardProps): JSX.Element {
   let isMain = false;
-
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const dispatch = useAppDispatch();
   if (pageType === PageType.Main) {
     isMain = true;
   }
+  if (cardData.isFavorite) {
+    dispatch(addFavoriteOffer(cardData.id));
+  }
 
-  const dispatch = useAppDispatch();
   return (
     <article
       className={cn(
@@ -66,16 +73,13 @@ function OfferCardScreen({
           </div>
           <button
             className={
-              cardData.isFavorite
+              favoriteOffers.includes(cardData.id)
                 ? 'place-card__bookmark-button place-card__bookmark-button--active button'
                 : 'place-card__bookmark-button button'
             }
             type="button"
             onClick={() => {
-              dispatch({
-                type: 'setIsFavorite',
-                payload: cardData.id,
-              });
+              dispatch(addFavoriteOffer(cardData.id));
             }}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>

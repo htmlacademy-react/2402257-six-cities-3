@@ -1,9 +1,17 @@
 import { useRef } from 'react';
 import StarInputScreen from './star-input-screen';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setComment, setRating } from '../../store/action';
+import {
+  setComment,
+  setRating,
+} from '../../store/form-process.ts/form-process';
 import { postCommentAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
+import {
+  getCommentText,
+  getIsCommentPosted,
+  getRating,
+} from '../../store/form-process.ts/selectors';
 
 const starsSettings = [
   {
@@ -39,9 +47,9 @@ const resetStarsCheckedStatus = () => {
 function CommentFormScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
-  const currentRating = useAppSelector((state) => state.comment.rating);
-  const currentComment = useAppSelector((state) => state.comment.commentText);
-  const isCommentPosted = useAppSelector((state) => state.isCommentPosted);
+  const currentRating = useAppSelector(getRating);
+  const currentComment = useAppSelector(getCommentText);
+  const isCommentPosted = useAppSelector(getIsCommentPosted);
   const isReadyToSubmit =
     currentRating !== 0 &&
     isCommentPosted &&

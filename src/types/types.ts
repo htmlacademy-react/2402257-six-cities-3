@@ -80,7 +80,7 @@ export type DetailedOffer = {
 };
 
 export type OffersNearby = {
-  id: number | string;
+  id: string;
   title: string;
   rating: number;
   type: string;

@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
-import { store } from '../../store/store';
+import { useAppDispatch } from '../../hooks';
+import { useAppSelector } from '../../hooks';
+import { addFavoriteOffer } from '../../store/favorite-process/favorite-process';
+import { getFavoriteOffers } from '../../store/favorite-process/selectors';
 
 type FavoritesCardProps = {
   cardData: {
@@ -17,6 +20,8 @@ type FavoritesCardProps = {
 };
 
 function FavoritesCardScreen({ cardData }: FavoritesCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
   return (
     <article className="favorites__card place-card">
       {cardData.isPremium ? (
@@ -43,16 +48,13 @@ function FavoritesCardScreen({ cardData }: FavoritesCardProps): JSX.Element {
           </div>
           <button
             className={
-              cardData.isFavorite
+              favoriteOffers.includes(cardData.id)
                 ? 'place-card__bookmark-button place-card__bookmark-button--active button'
                 : 'place-card__bookmark-button button'
             }
             type="button"
             onClick={() => {
-              store.dispatch({
-                type: 'setIsFavorite',
-                payload: cardData.id,
-              });
+              dispatch(addFavoriteOffer(cardData.id));
             }}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>

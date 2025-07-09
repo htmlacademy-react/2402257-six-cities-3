@@ -3,10 +3,20 @@ import FavoritesEmptyScreen from '../../components/favorites-empty/favorites-emp
 import FavoritesListScreen from '../../components/favorites-list/favorites-list-screen';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
+import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import {
+  getCitiesData,
+  getOriginOffers,
+} from '../../store/offers-data/selectors';
 
 function FavoritesScreen(): JSX.Element {
-  const favoritesOffers = useAppSelector((state) => state.favoritesOffers);
-  const cities = useAppSelector((state) => state.citiesData);
+  const favoritesOffersId = useAppSelector(getFavoriteOffers);
+  const cities = useAppSelector(getCitiesData);
+  const originOffers = useAppSelector(getOriginOffers);
+
+  const favoritesOffers = originOffers.filter((offer) =>
+    favoritesOffersId.includes(offer.id)
+  );
   return (
     <div className="page">
       <Helmet>

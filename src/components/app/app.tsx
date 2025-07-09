@@ -12,6 +12,8 @@ import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading/loading-screen';
 import HistoryRouter from '../history-router/history-route';
 import browserHistory from '../../browser-history';
+import { getIsOffersDataLoading } from '../../store/offers-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 type AppScreenProps = {
   cities: {
     name: string;
@@ -24,12 +26,8 @@ function App({ cities }: AppScreenProps): JSX.Element {
     null
   );
 
-  const isOffersDataLoading = useAppSelector(
-    (state) => state.isOffersDataLoading
-  );
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
+  const isOffersDataLoading = useAppSelector(getIsOffersDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (
     authorizationStatus === AuthorizationStatus.Unknown ||

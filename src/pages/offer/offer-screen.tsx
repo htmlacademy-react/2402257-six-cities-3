@@ -16,8 +16,13 @@ import { useEffect } from 'react';
 import { fetchDetailedOffersDataAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
 import LoadingScreen from '../loading/loading-screen';
-import { clearDetailedOfferData } from '../../store/action';
+import { clearDetailedOfferData } from '../../store/detailed-offer-process/detailed-offer-process';
 import { Points } from '../../types/types';
+import { getOriginOffers } from '../../store/offers-data/selectors';
+import { getDetailedOfferData } from '../../store/detailed-offer-process/selectors';
+import { addFavoriteOffer } from '../../store/favorite-process/favorite-process';
+import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import { getUserComments } from '../../store/form-process.ts/selectors';
 
 type OfferScreenProps = {
   authorizationStatus:
@@ -27,9 +32,11 @@ type OfferScreenProps = {
 };
 function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
   const { id } = useParams();
-  const allOffers = useAppSelector((state) => state.originOffers);
-  const offerDetailedData = useAppSelector((state) => state.detailedOfferData);
+  const allOffers = useAppSelector(getOriginOffers);
+  const userComments = useAppSelector(getUserComments);
+  const offerDetailedData = useAppSelector(getDetailedOfferData);
   useEffect(() => {
     dispatch(fetchDetailedOffersDataAction(id));
 
@@ -82,7 +89,17 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
               )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{detailedOffer.title}</h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button
+                  className={
+                    favoriteOffers.includes(detailedOffer.id)
+                      ? 'offer__bookmark-button offer__bookmark-button--active button'
+                      : 'offer__bookmark-button button'
+                  }
+                  type="button"
+                  onClick={() => {
+                    dispatch(addFavoriteOffer(detailedOffer.id));
+                  }}
+                >
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -165,6 +182,9 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
                 </h2>
                 <ul className="reviews__list">
                   {comments.map((comment) => (
+                    <ReviewItemScreen key={comment.id} commentData={comment} />
+                  ))}
+                  {userComments.map((comment) => (
                     <ReviewItemScreen key={comment.id} commentData={comment} />
                   ))}
                 </ul>
