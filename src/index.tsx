@@ -7,7 +7,7 @@ import { cities } from './const';
 import { fetchOffersAction, checkAuthAction } from './store/api-actions';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+//привет
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
 const root = ReactDOM.createRoot(
