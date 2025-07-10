@@ -13,7 +13,10 @@ import MapScreen from '../../components/map/map';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchDetailedOffersDataAction } from '../../store/api-actions';
+import {
+  fetchDetailedOffersDataAction,
+  postFavoriteOfferAction,
+} from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
 import LoadingScreen from '../loading/loading-screen';
 import { clearDetailedOfferData } from '../../store/detailed-offer-process/detailed-offer-process';
@@ -23,6 +26,7 @@ import { getDetailedOfferData } from '../../store/detailed-offer-process/selecto
 import { addFavoriteOffer } from '../../store/favorite-process/favorite-process';
 import { getFavoriteOffers } from '../../store/favorite-process/selectors';
 import { getUserComments } from '../../store/form-process.ts/selectors';
+import { getFavoriteStatus } from '../../logic/favorite-status';
 
 type OfferScreenProps = {
   authorizationStatus:
@@ -37,6 +41,8 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
   const allOffers = useAppSelector(getOriginOffers);
   const userComments = useAppSelector(getUserComments);
   const offerDetailedData = useAppSelector(getDetailedOfferData);
+  const isFavoriteStatus = getFavoriteStatus(favoriteOffers, id);
+
   useEffect(() => {
     dispatch(fetchDetailedOffersDataAction(id));
 
@@ -98,6 +104,12 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
                   type="button"
                   onClick={() => {
                     dispatch(addFavoriteOffer(detailedOffer.id));
+                    dispatch(
+                      postFavoriteOfferAction({
+                        id: id,
+                        status: isFavoriteStatus,
+                      })
+                    );
                   }}
                 >
                   <svg className="offer__bookmark-icon" width={31} height={33}>

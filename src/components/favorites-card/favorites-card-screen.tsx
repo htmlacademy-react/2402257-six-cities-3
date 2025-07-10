@@ -3,6 +3,12 @@ import { useAppDispatch } from '../../hooks';
 import { useAppSelector } from '../../hooks';
 import { addFavoriteOffer } from '../../store/favorite-process/favorite-process';
 import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import { postFavoriteOfferAction } from '../../store/api-actions';
+import { getFavoriteStatus } from '../../logic/favorite-status';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AuthorizationStatus } from '../../const';
+import { redirectToRoute } from '../../store/action';
+import { AppRoute } from '../../const';
 
 type FavoritesCardProps = {
   cardData: {
@@ -21,7 +27,10 @@ type FavoritesCardProps = {
 
 function FavoritesCardScreen({ cardData }: FavoritesCardProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const id = cardData.id;
   const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isFavoriteStatus = getFavoriteStatus(favoriteOffers, id);
   return (
     <article className="favorites__card place-card">
       {cardData.isPremium ? (
@@ -46,22 +55,43 @@ function FavoritesCardScreen({ cardData }: FavoritesCardProps): JSX.Element {
             <b className="place-card__price-value">{cardData.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className={
-              favoriteOffers.includes(cardData.id)
-                ? 'place-card__bookmark-button place-card__bookmark-button--active button'
-                : 'place-card__bookmark-button button'
-            }
-            type="button"
-            onClick={() => {
-              dispatch(addFavoriteOffer(cardData.id));
-            }}
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          {authorizationStatus === AuthorizationStatus.Auth ? (
+            <button
+              className={
+                favoriteOffers.includes(cardData.id)
+                  ? 'place-card__bookmark-button place-card__bookmark-button--active button'
+                  : 'place-card__bookmark-button button'
+              }
+              type="button"
+              onClick={() => {
+                dispatch(addFavoriteOffer(cardData.id));
+                dispatch(
+                  postFavoriteOfferAction({
+                    id: id,
+                    status: isFavoriteStatus,
+                  })
+                );
+              }}
+            >
+              <svg className="place-card__bookmark-icon" width={18} height={19}>
+                <use xlinkHref="#icon-bookmark" />
+                <span className="visually-hidden">In bookmarks</span>
+              </svg>
+            </button>
+          ) : (
+            <button
+              className={'place-card__bookmark-button button'}
+              type="button"
+              onClick={() => {
+                dispatch(redirectToRoute(AppRoute.Login));
+              }}
+            >
+              <svg className="place-card__bookmark-icon" width={18} height={19}>
+                <use xlinkHref="#icon-bookmark" />
+              </svg>
+              <span className="visually-hidden">In bookmarks</span>
+            </button>
+          )}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

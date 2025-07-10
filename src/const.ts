@@ -53,7 +53,7 @@ enum APIRoute {
   Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
-  Favorites = '/favorites',
+  Favorites = '/favorite',
   Comments = '/comments',
 }
 const FIRST_LOAD_CITY = 'Paris';

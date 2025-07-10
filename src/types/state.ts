@@ -29,6 +29,7 @@ export type SortProcess = {
 
 export type FavoritesProcess = {
   favoriteOffers: string[];
+  loadedFavorites: Points;
 };
 
 export type DetailedOfferProcess = {
