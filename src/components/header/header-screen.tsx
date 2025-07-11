@@ -3,7 +3,7 @@ import LogoScreen from '../logo/logo-screen';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../const';
-import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import { getFavoriteOffers } from '../../store/offers-data/selectors';
 import {
   getAuthorizationStatus,
   getUserData,

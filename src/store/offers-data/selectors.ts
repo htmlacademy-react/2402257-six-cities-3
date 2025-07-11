@@ -12,3 +12,7 @@ export const getIsOffersDataLoading = (state: State): boolean =>
   state[NameSpace.Data].isOffersDataLoading;
 export const getHasError = (state: State): boolean =>
   state[NameSpace.Data].hasError;
+export const getFavoriteOffers = (state: State): Points =>
+  state[NameSpace.Data].favoriteOffers;
+export const getFavoritesIsLoading = (state: State): boolean =>
+  state[NameSpace.Data].favoritesIsLoading;

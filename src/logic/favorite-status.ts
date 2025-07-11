@@ -1,8 +1,10 @@
+import { Points } from '../types/types';
+
 export const getFavoriteStatus = (
-  favoriteOffers: string[],
+  favoriteOffers: Points,
   offerId: string | undefined
 ): number => {
-  if (offerId !== undefined && favoriteOffers.includes(offerId)) {
+  if (favoriteOffers.map((offer) => offer.id).includes(offerId!)) {
     return 0;
   }
   return 1;

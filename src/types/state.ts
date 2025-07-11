@@ -22,6 +22,8 @@ export type OffersData = {
   citiesData: string[];
   offerList: Points;
   hasError: boolean;
+  favoriteOffers: Points;
+  favoritesIsLoading: boolean;
 };
 
 export type SortProcess = {

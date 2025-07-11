@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { useAppSelector } from '../../hooks';
-import { addFavoriteOffer } from '../../store/favorite-process/favorite-process';
-import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import { toggleFavoriteOffer } from '../../store/offers-data/offers-data';
+import { getFavoriteOffers } from '../../store/offers-data/selectors';
 import { postFavoriteOfferAction } from '../../store/api-actions';
 import { getFavoriteStatus } from '../../logic/favorite-status';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -58,13 +58,13 @@ function FavoritesCardScreen({ cardData }: FavoritesCardProps): JSX.Element {
           {authorizationStatus === AuthorizationStatus.Auth ? (
             <button
               className={
-                favoriteOffers.includes(cardData.id)
+                isFavoriteStatus === 0
                   ? 'place-card__bookmark-button place-card__bookmark-button--active button'
                   : 'place-card__bookmark-button button'
               }
               type="button"
               onClick={() => {
-                dispatch(addFavoriteOffer(cardData.id));
+                dispatch(toggleFavoriteOffer(cardData.id));
                 dispatch(
                   postFavoriteOfferAction({
                     id: id,

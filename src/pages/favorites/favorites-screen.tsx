@@ -6,9 +6,11 @@ import { useAppSelector } from '../../hooks';
 import {
   getFavoritesIsLoading,
   getHasError,
-  getLoadedFavorites,
-} from '../../store/favorite-process/selectors';
-import { getCitiesData } from '../../store/offers-data/selectors';
+} from '../../store/offers-data/selectors';
+import {
+  getCitiesData,
+  getFavoriteOffers,
+} from '../../store/offers-data/selectors';
 import { useAppDispatch } from '../../hooks';
 import { fetchFavoritesOffers } from '../../store/api-actions';
 import { useEffect } from 'react';
@@ -21,7 +23,7 @@ function FavoritesScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const favoritesIsLoading = useAppSelector(getFavoritesIsLoading);
   const cities = useAppSelector(getCitiesData);
-  const favoritesOffers = useAppSelector(getLoadedFavorites);
+  const favoritesOffers = useAppSelector(getFavoriteOffers);
   const hasError = useAppSelector(getHasError);
 
   useEffect(() => {

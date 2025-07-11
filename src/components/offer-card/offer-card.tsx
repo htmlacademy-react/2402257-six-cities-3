@@ -5,8 +5,8 @@ import { OffersNearby } from '../../types/types';
 import RatingScreen from '../rating/rating-screen';
 import { ContainerRatingType } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { addFavoriteOffer } from '../../store/favorite-process/favorite-process';
-import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import { toggleFavoriteOffer } from '../../store/offers-data/offers-data';
+import { getFavoriteOffers } from '../../store/offers-data/selectors';
 import { useAppSelector } from '../../hooks';
 import { postFavoriteOfferAction } from '../../store/api-actions';
 import { getFavoriteStatus } from '../../logic/favorite-status';
@@ -79,13 +79,13 @@ function OfferCardScreen({
           {authorizationStatus === AuthorizationStatus.Auth ? (
             <button
               className={
-                cardData.isFavorite || favoriteOffers.includes(cardData.id)
+                isFavoriteStatus === 0
                   ? 'place-card__bookmark-button place-card__bookmark-button--active button'
                   : 'place-card__bookmark-button button'
               }
               type="button"
               onClick={() => {
-                dispatch(addFavoriteOffer(cardData.id));
+                dispatch(toggleFavoriteOffer(cardData.id));
                 dispatch(
                   postFavoriteOfferAction({
                     id: cardData.id,

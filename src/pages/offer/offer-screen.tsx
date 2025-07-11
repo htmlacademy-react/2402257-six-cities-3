@@ -23,8 +23,8 @@ import { clearDetailedOfferData } from '../../store/detailed-offer-process/detai
 import { Points } from '../../types/types';
 import { getOriginOffers } from '../../store/offers-data/selectors';
 import { getDetailedOfferData } from '../../store/detailed-offer-process/selectors';
-import { addFavoriteOffer } from '../../store/favorite-process/favorite-process';
-import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import { toggleFavoriteOffer } from '../../store/offers-data/offers-data';
+import { getFavoriteOffers } from '../../store/offers-data/selectors';
 import { getUserComments } from '../../store/form-process.ts/selectors';
 import { getFavoriteStatus } from '../../logic/favorite-status';
 import { getHasError } from '../../store/detailed-offer-process/selectors';
@@ -102,13 +102,13 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
                 <h1 className="offer__name">{detailedOffer.title}</h1>
                 <button
                   className={
-                    favoriteOffers.includes(detailedOffer.id)
+                    isFavoriteStatus === 0
                       ? 'offer__bookmark-button offer__bookmark-button--active button'
                       : 'offer__bookmark-button button'
                   }
                   type="button"
                   onClick={() => {
-                    dispatch(addFavoriteOffer(detailedOffer.id));
+                    dispatch(toggleFavoriteOffer(detailedOffer.id));
                     dispatch(
                       postFavoriteOfferAction({
                         id: id,
