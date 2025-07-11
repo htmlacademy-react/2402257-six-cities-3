@@ -36,9 +36,6 @@ function OfferCardScreen({
   if (pageType === PageType.Main) {
     isMain = true;
   }
-  if (cardData.isFavorite) {
-    dispatch(addFavoriteOffer(cardData.id));
-  }
 
   return (
     <article
@@ -82,7 +79,7 @@ function OfferCardScreen({
           {authorizationStatus === AuthorizationStatus.Auth ? (
             <button
               className={
-                favoriteOffers.includes(cardData.id)
+                cardData.isFavorite || favoriteOffers.includes(cardData.id)
                   ? 'place-card__bookmark-button place-card__bookmark-button--active button'
                   : 'place-card__bookmark-button button'
               }

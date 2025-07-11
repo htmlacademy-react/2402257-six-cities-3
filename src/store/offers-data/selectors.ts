@@ -10,3 +10,5 @@ export const getOriginOffers = (state: State): Points =>
   state[NameSpace.Data].originOffers;
 export const getIsOffersDataLoading = (state: State): boolean =>
   state[NameSpace.Data].isOffersDataLoading;
+export const getHasError = (state: State): boolean =>
+  state[NameSpace.Data].hasError;

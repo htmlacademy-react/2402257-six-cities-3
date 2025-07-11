@@ -12,6 +12,7 @@ const initialState: OffersData = {
   originOffers: [],
   citiesData: [],
   offerList: [],
+  hasError: false,
 };
 export const offersData = createSlice({
   name: NameSpace.Data,
@@ -25,6 +26,7 @@ export const offersData = createSlice({
     builder.addCase(
       fetchOffersAction.fulfilled,
       (state, action: { payload: Points }) => {
+        state.hasError = false;
         state.originOffers = action.payload;
         state.isOffersDataLoading = false;
         state.citiesData = getUniqCities(action.payload);
@@ -33,6 +35,9 @@ export const offersData = createSlice({
     );
     builder.addCase(fetchOffersAction.pending, (state) => {
       state.isOffersDataLoading = true;
+    });
+    builder.addCase(fetchOffersAction.rejected, (state) => {
+      state.hasError = true;
     });
   },
 });

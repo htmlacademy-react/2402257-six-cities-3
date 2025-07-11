@@ -115,7 +115,7 @@ export const postCommentAction = createAsyncThunk<
 });
 
 export const postFavoriteOfferAction = createAsyncThunk<
-  void,
+  { id: string | undefined; status: number },
   { id: string | undefined; status: number },
   {
     state: State;
@@ -123,6 +123,7 @@ export const postFavoriteOfferAction = createAsyncThunk<
   }
 >('favorite/post', async ({ id, status }, { extra: api }) => {
   await api.post(`${APIRoute.Favorites}/${id}/${status}`);
+  return { id, status };
 });
 
 export const fetchFavoritesOffers = createAsyncThunk<

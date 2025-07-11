@@ -7,3 +7,6 @@ export const getDetailedOfferData = (state: State): DetailedOfferData | null =>
 
 export const getIsLoadingDetailedOffer = (state: State): boolean =>
   state[NameSpace.DetailedOffer].isLoadingDetailedOffer;
+
+export const getHasError = (state: State): boolean =>
+  state[NameSpace.DetailedOffer].hasError;

@@ -27,6 +27,8 @@ import { addFavoriteOffer } from '../../store/favorite-process/favorite-process'
 import { getFavoriteOffers } from '../../store/favorite-process/selectors';
 import { getUserComments } from '../../store/form-process.ts/selectors';
 import { getFavoriteStatus } from '../../logic/favorite-status';
+import { getHasError } from '../../store/detailed-offer-process/selectors';
+import NotFoundScreen from '../not-found/not-found-screen';
 
 type OfferScreenProps = {
   authorizationStatus:
@@ -42,7 +44,7 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
   const userComments = useAppSelector(getUserComments);
   const offerDetailedData = useAppSelector(getDetailedOfferData);
   const isFavoriteStatus = getFavoriteStatus(favoriteOffers, id);
-
+  const hasError = useAppSelector(getHasError);
   useEffect(() => {
     dispatch(fetchDetailedOffersDataAction(id));
 
@@ -51,6 +53,9 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
     };
   }, [dispatch, id]);
 
+  if (hasError) {
+    return <NotFoundScreen />;
+  }
   if (offerDetailedData === null) {
     return <LoadingScreen size={60} color="#4481C3" />;
   }
