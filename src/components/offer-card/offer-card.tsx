@@ -28,15 +28,11 @@ function OfferCardScreen({
   pageType,
   containerType,
 }: CardProps): JSX.Element {
-  let isMain = false;
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isFavoriteStatus = getFavoriteStatus(favoriteOffers, cardData.id);
   const dispatch = useAppDispatch();
-  if (pageType === PageType.Main) {
-    isMain = true;
-  }
-
+  const isMain = pageType === PageType.Main;
   return (
     <article
       className={cn(
