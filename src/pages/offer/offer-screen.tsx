@@ -29,6 +29,7 @@ import { getUserComments } from '../../store/form-process.ts/selectors';
 import { getFavoriteStatus } from '../../logic/favorite-status';
 import { getHasError } from '../../store/detailed-offer-process/selectors';
 import NotFoundScreen from '../not-found/not-found-screen';
+import { getFavoritesIsLoading } from '../../store/offers-data/selectors';
 
 type OfferScreenProps = {
   authorizationStatus:
@@ -44,6 +45,7 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
   const userComments = useAppSelector(getUserComments);
   const offerDetailedData = useAppSelector(getDetailedOfferData);
   const isFavoriteStatus = getFavoriteStatus(favoriteOffers, id);
+  const favoriteOfferLoading = useAppSelector(getFavoritesIsLoading);
   const hasError = useAppSelector(getHasError);
   useEffect(() => {
     dispatch(fetchDetailedOffersDataAction(id));
@@ -56,7 +58,7 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
   if (hasError) {
     return <NotFoundScreen />;
   }
-  if (offerDetailedData === null) {
+  if (offerDetailedData === null || favoriteOfferLoading) {
     return <LoadingScreen size={60} color="#4481C3" />;
   }
 
@@ -102,7 +104,7 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
                 <h1 className="offer__name">{detailedOffer.title}</h1>
                 <button
                   className={
-                    isFavoriteStatus === 0
+                    isFavoriteStatus
                       ? 'offer__bookmark-button offer__bookmark-button--active button'
                       : 'offer__bookmark-button button'
                   }

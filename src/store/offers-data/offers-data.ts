@@ -8,6 +8,7 @@ import { filterOffersByCity } from '../../logic/filter-offers';
 import { FIRST_LOAD_CITY } from '../../const';
 import { separateFavoritesOffers } from '../../logic/separate-favorites-offers.js';
 import { fetchFavoritesOffers } from '../api-actions';
+import { postFavoriteOfferAction } from '../api-actions';
 
 const initialState: OffersData = {
   isOffersDataLoading: false,
@@ -65,6 +66,15 @@ export const offersData = createSlice({
       state.favoritesIsLoading = true;
     });
     builder.addCase(fetchFavoritesOffers.rejected, (state) => {
+      state.hasError = true;
+    });
+    builder.addCase(postFavoriteOfferAction.fulfilled, (state) => {
+      state.favoritesIsLoading = false;
+    });
+    builder.addCase(postFavoriteOfferAction.pending, (state) => {
+      state.favoritesIsLoading = true;
+    });
+    builder.addCase(postFavoriteOfferAction.rejected, (state) => {
       state.hasError = true;
     });
   },

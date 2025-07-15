@@ -58,7 +58,7 @@ function FavoritesCardScreen({ cardData }: FavoritesCardProps): JSX.Element {
           {authorizationStatus === AuthorizationStatus.Auth ? (
             <button
               className={
-                isFavoriteStatus === 0
+                isFavoriteStatus
                   ? 'place-card__bookmark-button place-card__bookmark-button--active button'
                   : 'place-card__bookmark-button button'
               }

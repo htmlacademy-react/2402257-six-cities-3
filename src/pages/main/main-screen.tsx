@@ -16,6 +16,8 @@ import { getCurrentCity } from '../../store/cities-process/selectors';
 import { sortCurrentOffers } from '../../logic/sort-offers';
 import { getSorting } from '../../store/sorting-process/selectors';
 import NoResponseErrorScreen from '../no-response/no-response-screen';
+import { getFavoritesIsLoading } from '../../store/offers-data/selectors';
+import LoadingScreen from '../loading/loading-screen';
 
 type MainScreenProps = {
   cities: { name: string; key: number }[];
@@ -33,6 +35,7 @@ function MainScreen({
   const originCards = useAppSelector(getOriginOffers);
   const currentCityName = useAppSelector(getCurrentCity);
   const currentSortType = useAppSelector(getSorting);
+  const favoriteOfferLoading = useAppSelector(getFavoritesIsLoading);
   const cards = sortCurrentOffers(
     filterOffersByCity(originCards, currentCityName),
     currentSortType
@@ -48,6 +51,10 @@ function MainScreen({
   const currentCityData = getUniqueCities(cards).filter(
     (city) => city.name === currentCityName
   )[0];
+
+  if (favoriteOfferLoading) {
+    return <LoadingScreen size={60} color="#4481C3" />;
+  }
 
   return (
     <div className="page page--gray page--main">
