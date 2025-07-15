@@ -21,6 +21,9 @@ export type OffersData = {
   originOffers: Points;
   citiesData: string[];
   offerList: Points;
+  hasError: boolean;
+  favoriteOffers: Points;
+  favoritesIsLoading: boolean;
 };
 
 export type SortProcess = {
@@ -29,11 +32,15 @@ export type SortProcess = {
 
 export type FavoritesProcess = {
   favoriteOffers: string[];
+  loadedFavorites: Points;
+  favoritesIsLoading: boolean;
+  hasError: boolean;
 };
 
 export type DetailedOfferProcess = {
   detailedOfferData: DetailedOfferData | null;
   isLoadingDetailedOffer: boolean;
+  hasError: boolean;
 };
 
 export type FormProcess = {

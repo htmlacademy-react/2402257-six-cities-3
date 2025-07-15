@@ -6,6 +6,7 @@ import { fetchDetailedOffersDataAction } from '../api-actions';
 const initialState: DetailedOfferProcess = {
   detailedOfferData: null,
   isLoadingDetailedOffer: false,
+  hasError: false,
 };
 export const detailedOfferProcess = createSlice({
   name: NameSpace.DetailedOffer,
@@ -24,6 +25,7 @@ export const detailedOfferProcess = createSlice({
       .addCase(
         fetchDetailedOffersDataAction.fulfilled,
         (state, action: { payload: DetailedOfferData }) => {
+          state.hasError = false;
           state.detailedOfferData = action.payload;
           state.isLoadingDetailedOffer = false;
         }
@@ -31,8 +33,9 @@ export const detailedOfferProcess = createSlice({
       .addCase(fetchDetailedOffersDataAction.pending, (state) => {
         state.isLoadingDetailedOffer = true;
       })
-      .addCase(fetchDetailedOffersDataAction.rejected, () => {
-        //dispatch(redirectToRoute(AppRoute.NotFound)) ??
+      .addCase(fetchDetailedOffersDataAction.rejected, (state) => {
+        state.isLoadingDetailedOffer = false;
+        state.hasError = true;
       });
   },
 });

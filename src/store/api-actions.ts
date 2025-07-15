@@ -113,3 +113,31 @@ export const postCommentAction = createAsyncThunk<
   const { data } = await api.get<UserData>(APIRoute.Login);
   return { id, comment, rating, user: data };
 });
+
+export const postFavoriteOfferAction = createAsyncThunk<
+  { id: string | undefined; status: boolean },
+  { id: string | undefined; status: boolean },
+  {
+    state: State;
+    extra: AxiosInstance;
+  }
+>('favorite/post', async ({ id, status }, { extra: api }) => {
+  if (status) {
+    await api.post(`${APIRoute.Favorites}/${id}/0`);
+  } else {
+    await api.post(`${APIRoute.Favorites}/${id}/1`);
+  }
+  return { id, status };
+});
+
+export const fetchFavoritesOffers = createAsyncThunk<
+  Points,
+  undefined,
+  {
+    state: State;
+    extra: AxiosInstance;
+  }
+>('favorite/get', async (_arg, { extra: api }) => {
+  const { data } = await api.get<Points>(APIRoute.Favorites);
+  return data;
+});

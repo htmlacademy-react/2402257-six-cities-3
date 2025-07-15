@@ -3,20 +3,41 @@ import FavoritesEmptyScreen from '../../components/favorites-empty/favorites-emp
 import FavoritesListScreen from '../../components/favorites-list/favorites-list-screen';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
-import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import {
+  getFavoritesIsLoading,
+  getHasError,
+} from '../../store/offers-data/selectors';
 import {
   getCitiesData,
-  getOriginOffers,
+  getFavoriteOffers,
 } from '../../store/offers-data/selectors';
+import { useAppDispatch } from '../../hooks';
+import { fetchFavoritesOffers } from '../../store/api-actions';
+import { useEffect } from 'react';
+import LoadingScreen from '../loading/loading-screen';
+import { AppRoute } from '../../const';
+import { Link } from 'react-router-dom';
+import NoResponseErrorScreen from '../no-response/no-response-screen';
 
 function FavoritesScreen(): JSX.Element {
-  const favoritesOffersId = useAppSelector(getFavoriteOffers);
+  const dispatch = useAppDispatch();
+  const favoritesIsLoading = useAppSelector(getFavoritesIsLoading);
   const cities = useAppSelector(getCitiesData);
-  const originOffers = useAppSelector(getOriginOffers);
+  const favoritesOffers = useAppSelector(getFavoriteOffers);
+  const hasError = useAppSelector(getHasError);
 
-  const favoritesOffers = originOffers.filter((offer) =>
-    favoritesOffersId.includes(offer.id)
-  );
+  useEffect(() => {
+    dispatch(fetchFavoritesOffers());
+  }, [dispatch]);
+
+  if (hasError) {
+    return <NoResponseErrorScreen />;
+  }
+
+  if (favoritesIsLoading) {
+    return <LoadingScreen size={60} color="#4481C3" />;
+  }
+
   return (
     <div className="page">
       <Helmet>
@@ -36,7 +57,7 @@ function FavoritesScreen(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={AppRoute.Main}>
           <img
             className="footer__logo"
             src="img/logo.svg"
@@ -44,7 +65,7 @@ function FavoritesScreen(): JSX.Element {
             width={64}
             height={33}
           />
-        </a>
+        </Link>
       </footer>
     </div>
   );

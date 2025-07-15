@@ -5,9 +5,15 @@ import { OffersNearby } from '../../types/types';
 import RatingScreen from '../rating/rating-screen';
 import { ContainerRatingType } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { addFavoriteOffer } from '../../store/favorite-process/favorite-process';
-import { getFavoriteOffers } from '../../store/favorite-process/selectors';
+import { toggleFavoriteOffer } from '../../store/offers-data/offers-data';
+import { getFavoriteOffers } from '../../store/offers-data/selectors';
 import { useAppSelector } from '../../hooks';
+import { postFavoriteOfferAction } from '../../store/api-actions';
+import { getFavoriteStatus } from '../../logic/favorite-status';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { redirectToRoute } from '../../store/action';
+import { AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 
 type CardProps = {
   cardData: OffersNearby;
@@ -22,16 +28,11 @@ function OfferCardScreen({
   pageType,
   containerType,
 }: CardProps): JSX.Element {
-  let isMain = false;
   const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isFavoriteStatus = getFavoriteStatus(favoriteOffers, cardData.id);
   const dispatch = useAppDispatch();
-  if (pageType === PageType.Main) {
-    isMain = true;
-  }
-  if (cardData.isFavorite) {
-    dispatch(addFavoriteOffer(cardData.id));
-  }
-
+  const isMain = pageType === PageType.Main;
   return (
     <article
       className={cn(
@@ -71,22 +72,43 @@ function OfferCardScreen({
             <b className="place-card__price-value">€{cardData.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className={
-              favoriteOffers.includes(cardData.id)
-                ? 'place-card__bookmark-button place-card__bookmark-button--active button'
-                : 'place-card__bookmark-button button'
-            }
-            type="button"
-            onClick={() => {
-              dispatch(addFavoriteOffer(cardData.id));
-            }}
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {authorizationStatus === AuthorizationStatus.Auth ? (
+            <button
+              className={
+                isFavoriteStatus
+                  ? 'place-card__bookmark-button place-card__bookmark-button--active button'
+                  : 'place-card__bookmark-button button'
+              }
+              type="button"
+              onClick={() => {
+                dispatch(toggleFavoriteOffer(cardData.id));
+                dispatch(
+                  postFavoriteOfferAction({
+                    id: cardData.id,
+                    status: isFavoriteStatus,
+                  })
+                );
+              }}
+            >
+              <svg className="place-card__bookmark-icon" width={18} height={19}>
+                <use xlinkHref="#icon-bookmark" />
+                <span className="visually-hidden">In bookmarks</span>
+              </svg>
+            </button>
+          ) : (
+            <button
+              className={'place-card__bookmark-button button'}
+              type="button"
+              onClick={() => {
+                dispatch(redirectToRoute(AppRoute.Login));
+              }}
+            >
+              <svg className="place-card__bookmark-icon" width={18} height={19}>
+                <use xlinkHref="#icon-bookmark" />
+              </svg>
+              <span className="visually-hidden">In bookmarks</span>
+            </button>
+          )}
         </div>
         <div className="place-card__rating rating">
           <RatingScreen

@@ -111,3 +111,18 @@ export type DetailedOfferData = {
   nearbyOffers: Points;
   comments: CardComments;
 };
+
+export type FavoritesCardType = {
+  cardData: {
+    id: string;
+    title: string;
+    type: string;
+    price: number;
+    city: {
+      name: string;
+    };
+    isFavorite: boolean;
+    isPremium: boolean;
+    previewImage: string;
+  };
+};
