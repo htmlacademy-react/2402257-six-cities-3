@@ -1,6 +1,6 @@
 import { store } from '../store/store.js';
 import { AuthorizationStatus, SortTypes } from '../const';
-import { CardComment, UserData } from './types.js';
+import { UserData } from './types.js';
 import { Points } from './types.js';
 import { DetailedOfferData } from './types.js';
 export type State = ReturnType<typeof store.getState>;
@@ -42,10 +42,15 @@ export type DetailedOfferProcess = {
   isLoadingDetailedOffer: boolean;
   hasError: boolean;
 };
+export type UserComment = {
+  comment: string;
+  rating: number;
+};
 
 export type FormProcess = {
-  userComments: CardComment[];
+  userComments: UserComment[];
   rating: number;
   commentText: string;
   isCommentPosted: boolean;
+  hasError: boolean;
 };

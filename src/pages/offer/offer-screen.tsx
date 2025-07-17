@@ -53,7 +53,7 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
     return () => {
       dispatch(clearDetailedOfferData());
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, userComments]);
 
   if (hasError) {
     return <NotFoundScreen />;
@@ -201,9 +201,6 @@ function OfferScreen({ authorizationStatus }: OfferScreenProps): JSX.Element {
                 </h2>
                 <ul className="reviews__list">
                   {comments.map((comment) => (
-                    <ReviewItemScreen key={comment.id} commentData={comment} />
-                  ))}
-                  {userComments.map((comment) => (
                     <ReviewItemScreen key={comment.id} commentData={comment} />
                   ))}
                 </ul>

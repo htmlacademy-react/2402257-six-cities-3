@@ -1,6 +1,5 @@
 import { NameSpace } from '../../const';
-import { State } from '../../types/state';
-import { CardComment } from '../../types/types';
+import { State, UserComment } from '../../types/state';
 
 export const getRating = (state: Pick<State, NameSpace.Form>): number =>
   state[NameSpace.Form].rating;
@@ -10,7 +9,7 @@ export const getCommentText = (state: Pick<State, NameSpace.Form>): string =>
 
 export const getUserComments = (
   state: Pick<State, NameSpace.Form>
-): CardComment[] => state[NameSpace.Form].userComments;
+): UserComment[] => state[NameSpace.Form].userComments;
 
 export const getIsCommentPosted = (
   state: Pick<State, NameSpace.Form>

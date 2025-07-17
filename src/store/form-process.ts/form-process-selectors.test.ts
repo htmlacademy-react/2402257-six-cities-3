@@ -14,6 +14,7 @@ describe('FormProcess : Selectors', () => {
       rating: 3,
       commentText: 'smile',
       isCommentPosted: false,
+      hasError: false,
     },
   };
 
