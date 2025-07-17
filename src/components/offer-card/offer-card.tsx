@@ -56,7 +56,10 @@ function OfferCardScreen({
           { 'near-places__image-wrapper': !isMain }
         )}
       >
-        <a href="#">
+        <Link
+          className="header__logo-link header__logo-link--active"
+          to={`../offer/${cardData.id}`}
+        >
           <img
             className="place-card__image"
             src={cardData.previewImage}
@@ -64,7 +67,7 @@ function OfferCardScreen({
             height={200}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">

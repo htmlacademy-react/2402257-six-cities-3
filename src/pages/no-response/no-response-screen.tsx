@@ -1,5 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import styles from './data-loading-error-screen.module.css';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function NoResponseErrorScreen(): JSX.Element {
   const handleReload = () => {
@@ -14,9 +16,9 @@ function NoResponseErrorScreen(): JSX.Element {
 
       <header className={styles.header}>
         <div className={styles.headerContainer}>
-          <a href="/" className={styles.logoLink}>
+          <Link to={AppRoute.Main} className={styles.logoLink}>
             <img src="img/logo.svg" alt="Логотип" className={styles.logo} />
-          </a>
+          </Link>
         </div>
       </header>
 

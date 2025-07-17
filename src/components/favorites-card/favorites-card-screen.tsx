@@ -39,7 +39,10 @@ function FavoritesCardScreen({ cardData }: FavoritesCardProps): JSX.Element {
         ''
       )}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link
+          className="header__logo-link header__logo-link--active"
+          to={`../offer/${cardData.id}`}
+        >
           <img
             className="place-card__image"
             src={cardData.previewImage}
@@ -47,7 +50,7 @@ function FavoritesCardScreen({ cardData }: FavoritesCardProps): JSX.Element {
             height={110}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">

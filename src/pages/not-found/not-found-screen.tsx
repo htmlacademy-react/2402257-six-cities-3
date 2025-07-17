@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import './not-found-screen.css';
-
+import { AppRoute } from '../../const';
 function NotFoundScreen(): JSX.Element {
   return (
     <div className="not-found-container">
@@ -11,9 +11,9 @@ function NotFoundScreen(): JSX.Element {
 
       <header className="not-found-header">
         <div className="header-container">
-          <a href="/" className="logo-link">
+          <Link to={AppRoute.Main} className="logoLink">
             <img src="img/logo.svg" alt="6 cities logo" className="logo" />
-          </a>
+          </Link>
         </div>
       </header>
 
