@@ -80,4 +80,4 @@ export const offersData = createSlice({
   },
 });
 
-export const { toggleFavoriteOffer } = offersData.actions;
+export const { toggleFavoriteOffer, setUniqCities } = offersData.actions;

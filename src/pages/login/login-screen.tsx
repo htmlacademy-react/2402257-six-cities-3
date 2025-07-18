@@ -8,11 +8,13 @@ import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import { changeSortingType } from '../../store/sorting-process/sorting-process';
 import { SortTypes } from '../../const';
+import { getCitiesData } from '../../store/offers-data/selectors';
+import { useAppSelector } from '../../hooks';
 
 function LoginScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
+  const cities = useAppSelector(getCitiesData);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -27,7 +29,12 @@ function LoginScreen(): JSX.Element {
       );
     }
   };
+  const getRandomCity = () => {
+    const randomIndex = Math.floor(Math.random() * cities.length);
+    return cities[randomIndex];
+  };
 
+  const currentCity = getRandomCity();
   return (
     <div className="page page--gray page--login">
       <Helmet>
@@ -92,11 +99,11 @@ function LoginScreen(): JSX.Element {
                 className="locations__item-link"
                 to={AppRoute.Main}
                 onClick={() => {
-                  dispatch(changeCity('Amsterdam'));
+                  dispatch(changeCity(currentCity));
                   dispatch(changeSortingType(SortTypes.Popular));
                 }}
               >
-                <span>Amsterdam</span>
+                <span>{currentCity}</span>
               </Link>
             </div>
           </section>

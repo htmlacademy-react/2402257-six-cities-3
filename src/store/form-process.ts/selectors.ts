@@ -1,14 +1,16 @@
 import { NameSpace } from '../../const';
-import { State } from '../../types/state';
-import { CardComment } from '../../types/types';
+import { State, UserComment } from '../../types/state';
 
-export const getRating = (state: State): number => state[NameSpace.Form].rating;
+export const getRating = (state: Pick<State, NameSpace.Form>): number =>
+  state[NameSpace.Form].rating;
 
-export const getCommentText = (state: State): string =>
+export const getCommentText = (state: Pick<State, NameSpace.Form>): string =>
   state[NameSpace.Form].commentText;
 
-export const getUserComments = (state: State): CardComment[] =>
-  state[NameSpace.Form].userComments;
+export const getUserComments = (
+  state: Pick<State, NameSpace.Form>
+): UserComment[] => state[NameSpace.Form].userComments;
 
-export const getIsCommentPosted = (state: State): boolean =>
-  state[NameSpace.Form].isCommentPosted;
+export const getIsCommentPosted = (
+  state: Pick<State, NameSpace.Form>
+): boolean => state[NameSpace.Form].isCommentPosted;

@@ -32,7 +32,11 @@ function ReviewItemScreen({ commentData }: CommentDataProps): JSX.Element {
         <p className="reviews__text">{commentData.comment}</p>
         <time
           className="reviews__time"
-          dateTime={classNameCommentDate(new Date(commentData.date))}
+          dateTime={
+            commentData.date
+              ? classNameCommentDate(new Date())
+              : classNameCommentDate(new Date(commentData.date))
+          }
         >
           {humanizeCommentDate(new Date(commentData.date))}
         </time>

@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { FormProcess } from '../../types/state';
-import { nanoid } from 'nanoid';
 import { postCommentAction } from '../api-actions';
 
 const initialState: FormProcess = {
@@ -9,6 +8,7 @@ const initialState: FormProcess = {
   rating: 0,
   commentText: '',
   isCommentPosted: true,
+  hasError: false,
 };
 export const formProcess = createSlice({
   name: NameSpace.Form,
@@ -31,14 +31,8 @@ export const formProcess = createSlice({
         state,
         action: {
           payload: {
-            id: string;
             comment: string;
             rating: number;
-            user: {
-              avatarUrl: string;
-              isPro: boolean;
-              name: string;
-            };
           };
         }
       ) => {
@@ -46,14 +40,7 @@ export const formProcess = createSlice({
           ...state.userComments,
           {
             comment: action.payload.comment,
-            date: new Date().toISOString(),
-            id: nanoid(),
             rating: action.payload.rating,
-            user: {
-              avatarUrl: action.payload.user.avatarUrl,
-              isPro: action.payload.user.isPro,
-              name: action.payload.user.name,
-            },
           },
         ];
         state.isCommentPosted = true;
@@ -61,6 +48,9 @@ export const formProcess = createSlice({
     );
     builder.addCase(postCommentAction.pending, (state) => {
       state.isCommentPosted = false;
+    });
+    builder.addCase(postCommentAction.rejected, (state) => {
+      state.hasError = true;
     });
   },
 });

@@ -1,5 +1,5 @@
 import { NameSpace } from '../../const';
 import { State } from '../../types/state';
 
-export const getCurrentCity = (state: State): string =>
+export const getCurrentCity = (state: Pick<State, NameSpace.Cities>): string =>
   state[NameSpace.Cities].currentCity;

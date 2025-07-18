@@ -102,7 +102,7 @@ export const logoutAction = createAsyncThunk<
 });
 
 export const postCommentAction = createAsyncThunk<
-  { id: string; comment: string; rating: number; user: UserData },
+  { comment: string; rating: number },
   { id: string; comment: string; rating: number },
   {
     state: State;
@@ -110,8 +110,7 @@ export const postCommentAction = createAsyncThunk<
   }
 >('comments/post', async ({ id, comment, rating }, { extra: api }) => {
   await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
-  const { data } = await api.get<UserData>(APIRoute.Login);
-  return { id, comment, rating, user: data };
+  return { comment, rating };
 });
 
 export const postFavoriteOfferAction = createAsyncThunk<
